@@ -1,13 +1,46 @@
 :root{
-    --cor-primaria: lightcoral;
+    --cor-primaria: red;
+    --cor-secundaria: lightcoral;
+    --cor-fundo: rgb(240, 240, 240);
 }
 
 body{
     margin: 0;
     padding: 0;
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-fundo);
 }
 
+footer {
+    text-align: center;
+    font-size: 16px;
+    color: #4d4d4d;
+    margin-top: 10px;
+}
+
+h1{
+    color: var(--cor-primaria);
+}
+
+form {
+    border: 2px solid var(--cor-primaria);
+    border-radius: 10px;
+    padding: 30px;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+#logo-hospital{
+    height: 20%;
+}
+
+.container-principal, .agradecimento-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
 .pergunta, .feedback {
     display: none;
@@ -15,4 +48,78 @@ body{
 
 .pergunta:first-of-type {
     display: block;
+}
+
+.escala{
+    color:white;
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px;
+}
+
+.escala input[type="radio"] {
+    display: none;
+}
+
+.escala label {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.escala input[type="radio"]:checked + label, .escala label:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Classes para cada valor da escala */
+.label-escala-0 { background-color: #FF0000; }
+.label-escala-1 { background-color: #b91818; }
+.label-escala-2 { background-color: #FF4500; }
+.label-escala-3 { background-color: #FF7F50; }
+.label-escala-4 { background-color: #FFA500; }
+.label-escala-5 { background-color: #FFD700; }
+.label-escala-6 { background-color: #ADFF2F; }
+.label-escala-7 { background-color: #6acf04; }
+.label-escala-8 { background-color: #32CD32; }
+.label-escala-9 { background-color: #12cc12; }
+.label-escala-10 { background-color: #00FF00; }
+
+/* Inputs e Textarea */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid var(--cor-secundaria);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+#botao-perguntas {
+    margin-top: 10px;
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transições */
+}
+
+#botao-perguntas:hover {
+    background-color: darkgreen;
+    transform: scale(1.05); /* Efeito de ampliação ao passar o mouse */
 }
