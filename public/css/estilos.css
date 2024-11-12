@@ -88,8 +88,8 @@ form {
 .label-escala-2 { background-color: #FF4500; }
 .label-escala-3 { background-color: #FF7F50; }
 .label-escala-4 { background-color: #FFA500; }
-.label-escala-5 { background-color: #FFD700; }
-.label-escala-6 { background-color: #ADFF2F; }
+.label-escala-5 { background-color: #c9ab03; }
+.label-escala-6 { background-color: #87ca22; }
 .label-escala-7 { background-color: #6acf04; }
 .label-escala-8 { background-color: #32CD32; }
 .label-escala-9 { background-color: #12cc12; }
@@ -122,4 +122,11 @@ textarea {
 #botao-perguntas:hover {
     background-color: darkgreen;
     transform: scale(1.05); /* Efeito de ampliação ao passar o mouse */
+}
+
+.agradecimento-container {
+    background-image: url('img/cidade_black.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
