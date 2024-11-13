@@ -42,7 +42,6 @@ function exibirPergunta(cont){
 //Altera a ação do botão da página formulário
 function finalizarFormulario() {
     document.getElementById('formulario').submit();
-    window.location.href="obrigado.php";
 }
 
 //Recarregar pagina de agradecimento após 5 segundos
