@@ -18,7 +18,7 @@ $perguntas = obterPerguntas();
 
         <img src = "css/img/logo-white.png" alt = "Logo do Hospital" id = "logo-hospital">
 
-        <h1>Avaliação de serviços!</h1>
+        <h1>Avaliação de serviços</h1>
 
         <form id="formulario" action="../src/respostas.php" method="POST">
                 <!-- Loop que percorre cada pergunta do array $perguntas -->

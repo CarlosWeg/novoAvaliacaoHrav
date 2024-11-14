@@ -29,6 +29,8 @@ form {
     display: flex; 
     flex-direction: column;
     align-items: center;
+    width: auto;
+    height: auto;
 }
 
 #logo-hospital{
@@ -104,12 +106,10 @@ form {
 .label-escala-10 { background-color: #00FF00; }
 
 /* Inputs e Textarea */
-input[type="text"],
 textarea {
-    width: 100%;
+    width: 95%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 2px solid var(--cor-secundaria);
     border-radius: 5px;
     font-size: 16px;
 }
