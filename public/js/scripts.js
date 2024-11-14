@@ -18,7 +18,7 @@ function proxPergunta(){
 // Exibir a pergunta correspondente
 function exibirPergunta(cont){
     const perguntas = document.querySelectorAll('.pergunta');
-    const feedbackDiv = document.querySelector('.feedback');
+    const feedbackDiv = document.querySelector('.feedback-container');
 
     perguntas.forEach(function(pergunta, index){
         if (index === cont){
@@ -48,7 +48,7 @@ function finalizarFormulario() {
 window.onload = function(){
     if (document.getElementById('pagina-agradecimento')){
         setTimeout(()=>{
-            window.location.href="formulario.php";
+            window.location.href=("formulario.php?setor_id=$setor_id&dispositivo_id=$dispositivo_id");
         },5000);
     }
 }

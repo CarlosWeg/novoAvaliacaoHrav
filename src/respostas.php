@@ -94,9 +94,13 @@
             // Pega o feedback (opcional)
             $feedback_geral = isset($_POST['feedback']) ? trim($_POST['feedback']) : null;
 
-            // ID fixo para teste (temporário)
-            $dispositivo_id = 1;
-            $setor_id = 1;
+            
+            $setor_id = $_POST['setor_id'] ?? null;
+            $dispositivo_id = $_POST['dispositivo_id'] ?? null;
+
+            if (!$setor_id || !$dispositivo_id) {
+                throw new Exception("Setor ou dispositivo não selecionado.");
+            }
 
             // Processa cada resposta
             foreach ($_POST['respostas'] as $pergunta_id => $resposta) {

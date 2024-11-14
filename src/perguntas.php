@@ -16,8 +16,8 @@
                             TEXTO,
                             STATUS 
                         FROM PERGUNTAS 
-                        WHERE STATUS = 'TRUE' 
-                        ORDER BY ORDEM";
+                       WHERE STATUS = 'TRUE' 
+                       ORDER BY ORDEM";
     
             $stmt = $conexao->prepare($consulta);
             

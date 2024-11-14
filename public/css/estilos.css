@@ -1,6 +1,5 @@
 :root{
     --cor-primaria: red;
-    --cor-secundaria: lightcoral;
     --cor-fundo: rgb(240, 240, 240);
 }
 
@@ -52,7 +51,7 @@ form {
     display: flex;
 }
 
-.pergunta, .feedback {
+.pergunta, .feedback-container {
     display: none;
 }
 
@@ -105,15 +104,19 @@ form {
 .label-escala-9 { background-color: #12cc12; }
 .label-escala-10 { background-color: #00FF00; }
 
-/* Inputs e Textarea */
+
+.feedback-container{
+    font-size: 18px;
+}
+
 textarea {
     width: 95%;
+    min-height: 100px;
     padding: 12px;
     margin-bottom: 15px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px;
 }
-
 
 #botao-perguntas {
     margin-top: 10px;
@@ -124,12 +127,12 @@ textarea {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transições */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #botao-perguntas:hover {
     background-color: darkgreen;
-    transform: scale(1.05); /* Efeito de ampliação ao passar o mouse */
+    transform: scale(1.05);
 }
 
 .agradecimento-container {
@@ -137,4 +140,28 @@ textarea {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+nav {
+    background-color: #f8f9fa;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+nav a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 18px;
+}
+
+nav a:hover {
+    background-color: #007bff;
+    color: white;
 }

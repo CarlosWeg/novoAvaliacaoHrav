@@ -1,6 +1,8 @@
 <?php
 require_once '../src/perguntas.php';
 $perguntas = obterPerguntas();
+$setor_id = $_GET['setor_id'];
+$dispositivo_id = $_GET['dispositivo_id'];
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +10,7 @@ $perguntas = obterPerguntas();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação HRAV</title>
+    <title>Formulário - Avaliação HRAV</title>
     <link rel="stylesheet" href="css/estilos.css">
     <script src="js/scripts.js"></script>
 </head>
@@ -21,6 +23,8 @@ $perguntas = obterPerguntas();
         <h1>Avaliação de serviços</h1>
 
         <form id="formulario" action="../src/respostas.php" method="POST">
+            <input type="hidden" name="setor_id" value="<?=$setor_id;?>">
+            <input type="hidden" name="dispositivo_id" value="<?=$dispositivo_id;?>">
                 <!-- Loop que percorre cada pergunta do array $perguntas -->
                 <?php foreach ($perguntas as $index => $pergunta): ?>
                     <div class="pergunta">
@@ -42,7 +46,7 @@ $perguntas = obterPerguntas();
                 <?php endforeach; ?>
 
                 <!-- Feedback adicional aparece após as perguntas -->
-                <div class="feedback">
+                <div class="feedback-container">
                     <label for="feedback">Feedback adicional (opcional):</label>
                     <textarea name="feedback" id="feedback"></textarea>
                 </div>
