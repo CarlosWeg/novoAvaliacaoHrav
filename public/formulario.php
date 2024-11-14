@@ -1,8 +1,19 @@
 <?php
+
+session_start();
 require_once '../src/perguntas.php';
+
 $perguntas = obterPerguntas();
-$setor_id = $_GET['setor_id'];
-$dispositivo_id = $_GET['dispositivo_id'];
+$setor_id = $_SESSION['setor_id'];
+$dispositivo_id = $_SESSION['dispositivo_id'];
+
+
+if (!isset($dispositivo_id) || !isset($setor_id)){
+    header("Location: index.php");
+    exit;
+}
+
+
 ?>
 
 <!DOCTYPE html>

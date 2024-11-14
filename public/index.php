@@ -1,13 +1,22 @@
 <?php
+
+session_start();
 require_once '../src/funcoes.php';
 $setores = obterSetores();
 $dispositivos = obterDispositivos();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $setor_id = $_POST['setor_id'];
-    $dispositivo_id = $_POST['dispositivo_id'];
-    header("Location: formulario.php?setor_id=$setor_id&dispositivo_id=$dispositivo_id");
-    exit;
+    $setor_id = filter_input(INPUT_POST,'setor_id', FILTER_VALIDATE_INT);
+    $dispositivo_id = filter_input(INPUT_POST,'dispositivo_id', FILTER_VALIDATE_INT);
+
+    if ($setor_id && $dispositivo_id){
+        $_SESSION['setor_id'] = $setor_id;
+        $_SESSION['dispositivo_id'] = $dispositivo_id;
+        header("Location: formulario.php");
+        exit;
+    }else{
+        header("Location: erro.php");
+    }
 }
 
 ?>
