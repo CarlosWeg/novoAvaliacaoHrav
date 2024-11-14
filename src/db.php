@@ -13,11 +13,10 @@ function conectarBD(){
         $pdo = new PDO($dsn);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        //echo "Conexão bem-sucedida!";
         return $pdo;
 
     } catch (PDOException $e) {
-        echo "Erro ao conectar: " . $e->getMessage();
+        error_log("Erro ao conectar: " . $e->getMessage());
         return null;
     }
 }

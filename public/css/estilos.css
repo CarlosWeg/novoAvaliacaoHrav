@@ -22,7 +22,8 @@ h1{
 }
 
 form {
-    border: 2px solid var(--cor-primaria);
+    border: 2px solid;
+    border-image: linear-gradient(to right, red, green) 1;
     border-radius: 10px;
     padding: 30px;
     display: flex; 
@@ -40,6 +41,13 @@ form {
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+
+.pergunta-texto{
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .pergunta, .feedback {

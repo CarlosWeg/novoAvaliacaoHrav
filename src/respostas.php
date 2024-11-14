@@ -19,21 +19,22 @@
                 throw new Exception("IDs inválidos fornecidos");
             }
 
-            // Cria um array com as verificações que precisam ser feitas, cada elemento contém o nome da tabela e o ID a ser verificado
+            // Cria um array com as verificações que precisam ser feitas
+            // cada elemento contém o nome da tabela e o ID a ser verificado
             $verificacoes = [
                 ['tabela' => 'setores', 'id' => $setor_id],
                 ['tabela' => 'perguntas', 'id' => $pergunta_id],
                 ['tabela' => 'dispositivos', 'id' => $dispositivo_id]
             ];
 
-            // Loop para verificar se cada ID existe em sua respectiva tabela
+            // Loop para verificar se cada ID existe em sua  tabela
             foreach ($verificacoes as $verificacao) {
                 // Prepara a consulta SQL para verificar a existência do ID
                 $consulta = "SELECT id FROM {$verificacao['tabela']} WHERE id = ?";
                 $stmt = $conexao->prepare($consulta);
                 $stmt->execute([$verificacao['id']]);
-                
-                // Se não encontrar o ID, lança uma exceção
+
+                // fetch() retorna false se não encontrar resultados
                 if (!$stmt->fetch()) {
                     throw new Exception("ID não encontrado na tabela {$verificacao['tabela']}");
                 }
@@ -46,7 +47,6 @@
             // Prepara a declaração SQL
             $stmt = $conexao->prepare($consulta);
 
-            // Executa a consulta, substituindo os placeholders pelos valores reais
             $resultado = $stmt->execute([
                 $setor_id,
                 $pergunta_id,
@@ -56,6 +56,7 @@
             ]);
 
             // Verifica se a inserção foi bem-sucedida
+            // execute() retorna false se houver algum erro
             if (!$resultado) {
                 throw new Exception("Erro ao inserir avaliação");
             }
@@ -84,13 +85,16 @@
             }
 
             // Verifica se existem respostas
-            if (!isset($_POST['respostas']) || !is_array($_POST['respostas'])) {
-                throw new Exception("Nenhuma resposta fornecida");
-            }
+            if (isset($_POST['feedback'])) {
+                $feedback_geral = trim($_POST['feedback']);
+            } else {
+                $feedback_geral = null;
+            }            
 
             // Pega o feedback (opcional)
             $feedback_geral = isset($_POST['feedback']) ? trim($_POST['feedback']) : null;
 
+            // ID fixo para teste (temporário)
             $dispositivo_id = 1;
             $setor_id = 1;
 

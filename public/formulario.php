@@ -21,11 +21,17 @@ $perguntas = obterPerguntas();
         <h1>Avaliação de serviços!</h1>
 
         <form id="formulario" action="../src/respostas.php" method="POST">
+                <!-- Loop que percorre cada pergunta do array $perguntas -->
                 <?php foreach ($perguntas as $index => $pergunta): ?>
                     <div class="pergunta">
-                        <label><?=$pergunta['texto'];?></label>
+                        <label class = "pergunta-texto"><?=$pergunta['texto'];?></label>
                         <div class="escala">
                             <?php for ($i = 0; $i <= 10; $i++): ?>
+                                <!--
+                                    - id: identifica unicamente cada input (ex: resposta-1-5 para pergunta 1, valor 5)
+                                    - name: agrupa os radios por pergunta (ex: respostas[1] para pergunta 1)
+                                    - value: valor numérico da resposta (0 a 10)
+                                !-->
                                 <input type="radio" id="resposta-<?= $pergunta['id']; ?>-<?= $i; ?>" name="respostas[<?= $pergunta['id']; ?>]" value="<?= $i; ?>" required>
                                 <label for="resposta-<?= $pergunta['id']; ?>-<?= $i; ?>" class="label-escala label-escala-<?= $i; ?>">
                                 <?= $i; ?>
