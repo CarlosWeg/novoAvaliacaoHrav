@@ -39,16 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Bem vindo(a) a pagina inicial do sistema de avaliações!</h1>
         <h3>Como gostaria de prosseguir?</h3>
 
-        <div class = "autenticador-admin">
-
-            <a href = "admin.php">Acessar painel de Administrador</a>
-
-    </div>
 
         <div class = "selecao-formulario">
+            <h3>Iniciar formulário</h3>
             <form id = "formulario-setor-dispositivo"  method = "POST">
 
-                <h4>Selecione o setor:</h4>
+                <h3>Selecione o setor:</h3>
                 <select name="setor_id">
                 
                         <?php foreach ($setores as $index=>$setor): ?>
@@ -58,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 </select>
 
-                <h4>Selecione o dispositivo:</h4>
+
+                <h3>Selecione o dispositivo:</h3>
                 <select name="dispositivo_id">
                 
                         <?php foreach ($dispositivos as $index=>$dispositivo): ?>
@@ -72,6 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
        
         </div>
+
+        <div class = "autenticador-admin">
+
+            <a href = "admin.php">Acessar painel de Administrador</a>
+
+        </div>
+
 
     </div>
 

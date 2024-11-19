@@ -5,13 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     exibirPergunta(indicePerguntas);
 });
 
-//Verificar se ainda há perguntas para serem exibidas
-function proxPergunta(){
+function proxPergunta() {
     const perguntas = document.querySelectorAll('.pergunta');
 
-    if (indicePerguntas<perguntas.length){
+    const perguntaAtual = perguntas[indicePerguntas];
+    const radios = perguntaAtual.querySelectorAll('input[type="radio"]');
+    const algumMarcado = Array.from(radios).some(radio => radio.checked);
+
+    //Verifica se foi marcado algum radio para cada pergunta
+    if (!algumMarcado) {
+        alert("Por favor, responda a pergunta antes de prosseguir.");
+        return;
+    }
+
+    // Exibe a próxima pergunta,se houver
+    if (indicePerguntas < perguntas.length) {
         indicePerguntas++;
-        exibirPergunta(indicePerguntas);//Após ser constatado que há perguntas pendentes, é chamada a próxima função
+        exibirPergunta(indicePerguntas);
     }
 }
 
@@ -48,7 +58,7 @@ function finalizarFormulario() {
 window.onload = function(){
     if (document.getElementById('pagina-agradecimento')){
         setTimeout(()=>{
-            window.location.href=("formulario.php?setor_id=$setor_id&dispositivo_id=$dispositivo_id");
+            window.location.href=("formulario.php");
         },5000);
     }
 }
