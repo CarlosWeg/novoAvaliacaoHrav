@@ -31,7 +31,7 @@ if (!isset($dispositivo_id) || !isset($setor_id)){
 
         <img src = "css/img/logo-white.png" alt = "Logo do Hospital" id = "logo-hospital">
 
-        <h1>Avaliação de serviços</h1>
+        <h1>AVALIAÇÃO DE SERVIÇOS</h1>
 
         <form id="formulario" action="../src/respostas.php" method="POST">
             <input type="hidden" name="setor_id" value="<?=$setor_id;?>">
@@ -58,11 +58,11 @@ if (!isset($dispositivo_id) || !isset($setor_id)){
 
                 <!-- Feedback adicional aparece após as perguntas -->
                 <div class="feedback-container">
-                    <label for="feedback">Feedback adicional (opcional):</label>
+                    <label for="feedback">Feedback adicional (opcional):</label><br>
                     <textarea name="feedback" id="feedback"></textarea>
                 </div>
 
-                <button type="button" id="botao-perguntas" onclick="proxPergunta()">Próxima</button>
+                <button type="button" id="botao-perguntas" onclick="proxPergunta()">PRÓXIMA</button>
                 
             </form>
 

@@ -44,7 +44,7 @@ function exibirPergunta(cont){
 
         // Alterar o texto do botão para "Finalizar"
         const botao = document.querySelector('button');
-        botao.textContent = 'Finalizar';
+        botao.textContent = 'FINALIZAR';
         botao.setAttribute('onclick', 'finalizarFormulario()');
     }
 }
