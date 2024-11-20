@@ -119,15 +119,11 @@
                 );
             }
 
-            // Redireciona para uma página de sucesso
             header('Location: ../public/obrigado.php');
             exit;
 
         } catch (Exception $e) {
-            // Log do erro
             error_log("Erro ao processar respostas: " . $e->getMessage());
-            
-            // Redireciona para página de erro
             header('Location: ../public/erro.php');
             exit;
         }
@@ -166,5 +162,6 @@
         }
     }
 
-    // Executa o processamento
-    processarRespostas();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        processarRespostas();
+    };

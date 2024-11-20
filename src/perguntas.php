@@ -46,3 +46,32 @@
             $conexao = null;
         }
     }
+
+
+    if (isset($_GET['desativar'])) {
+            
+        try {
+
+            $id = (int)$_GET['desativar'];
+            
+            $conexao = conectarBD();
+
+            if (!$conexao) {
+                throw new Exception("Falha na conexão com o banco de dados");
+            }
+    
+            $query = "UPDATE perguntas SET status = 'FALSE' WHERE id = :id";
+            $stmt = $conexao->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            
+            $stmt->execute();
+    
+            $conexao = null;
+            header('Location: ../public/admin.php');
+            exit();
+    
+        } catch (PDOException $e) {
+
+            echo 'Erro na conexão: ' . $e->getMessage();
+        }
+    }

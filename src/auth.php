@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
 require_once 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -38,8 +40,8 @@ function login($login,$senha){
         if (!password_verify($senha, $resultado['senha'])) {
             throw new Exception("Senha incorreta");
         }
-
-        $_SESSION['usuario_logado'] = $usuario['id'];
+        
+        $_SESSION['usuario_logado'] = $resultado['id'];
         header('Location: ../public/admin.php');
 
     } catch (Exception $e) {
@@ -92,11 +94,9 @@ function cadastrarUsuario($usuario, $senha) {
     }
 }
 
-cadastrarUsuario("admin","admin");
-
 function verificarAutenticacao() {
     if (!isset($_SESSION['usuario_logado'])) {
-        header('Location: ../public/login.php');
+        header('Location: ../public/index.php');
         exit();
     }
 }
