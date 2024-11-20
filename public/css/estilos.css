@@ -1,72 +1,125 @@
 :root{
-    --cor-primaria: rgba(218, 17, 17, 0.945);
-    --cor-fundo: rgb(240, 240, 240);
+    --primaria: lightcoral;
+    --primaria-escura: #e06666;
+    --primaria-clara: #ffd1d1;
+    --fundo: white;
+    --texto: #333333;
+    --sombra: rgba(238, 110, 110, 0.397);
+    --transicao: all 0.3s ease;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
 body{
-    margin: 0;
-    padding: 0;
-    background-color: var(--cor-fundo);
-}
-
-footer {
-    text-align: center;
-    font-size: 16px;
-    color: #4d4d4d;
-    margin-top: 10px;
-}
-
-h1{
-    color: var(--cor-primaria);
-}
-
-#formulario{
-    border: 2px solid;
-    border-image: linear-gradient(to right, red, green) 1;
-    border-radius: 10px;
-    background-color: white;
-    padding: 30px;
-    display: flex; 
-    flex-direction: column;
+    background: var(--fundo);
+    color: var(--texto);
+    height: 100vh;
+    display: flex;
     align-items: center;
-    width: auto;
-    height: auto;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Container Principal */
+.container-principal{
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+    background: var(--fundo);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px var(--sombra);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    } to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }
 
 #logo-hospital{
-    height: 20%;
+    max-width: 200px;
+    height: auto;
+    transition: var(--transicao);
 }
 
-.container-principal, .agradecimento-container {
+h1{
+    color: var(--primaria-escura);
+    font-size: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--primaria-clara);
+    margin-bottom: 20px;
+}
+
+h3{
+    color: var(--primaria);
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.container-formulario-inicial{
+    background: var(--fundo);
+    padding: 30px;
+    border-radius: 15px;
+    transition: var(--transicao);
+}
+
+/* Elementos de Formulário */
+form{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    gap: 15px;
 }
 
-.pergunta-texto{
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+select, input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--primaria);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: var(--transicao);
 }
 
-.pergunta, .feedback-container {
-    display: none;
+select:focus, input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primaria);
+    box-shadow: 0 0 0 4px var(--primaria-clara);
 }
 
-.pergunta:first-of-type {
-    display: block;
+button {
+    background: var(--primaria);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: var(--transicao);
+    margin-top: 15px;
+}
+
+button:hover {
+    background: var(--primaria-escura);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--sombra);
 }
 
 .escala{
-    color:white;
+    color: white;
     font-weight: bolder;
     display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 10px;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px;
 }
 
 .escala input[type="radio"] {
@@ -74,13 +127,13 @@ h1{
 }
 
 .escala label {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     border-radius: 50%;
     cursor: pointer;
@@ -89,10 +142,10 @@ h1{
 
 .escala input[type="radio"]:checked + label, .escala label:hover {
     transform: scale(1.2);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px var(--sombra);
 }
 
-/* Classes para cada valor da escala */
+/* Etiquetas de Escala */
 .label-escala-0 { background-color: #FF0000; }
 .label-escala-1 { background-color: #b91818; }
 .label-escala-2 { background-color: #FF4500; }
@@ -105,112 +158,140 @@ h1{
 .label-escala-9 { background-color: #12cc12; }
 .label-escala-10 { background-color: #00FF00; }
 
-
-.feedback-container{
-    font-size: 18px;
+.pergunta{
+    background: var(--fundo);
+    padding: 30px;
+    border-radius: 15px;
+    display: none;
 }
 
-textarea {
-    width: 95%;
-    min-height: 100px;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-size: 18px;
-}
-
-#botao-perguntas {
-    margin-top: 10px;
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-#botao-perguntas:hover {
-    background-color: darkgreen;
-    transform: scale(1.05);
-}
-
-.agradecimento-container {
-    background-image: url('img/cidade_black.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-nav {
-    background-color: #f8f9fa;
-    padding: 15px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-nav a {
+.pergunta.active{
     display: block;
-    color: #007bff;
-    text-decoration: none;
+    animation: slideIn 0.4s ease;
+}
+
+#feedback{
+    margin-top: 10px;
+}
+.pergunta, .feedback-container {
+    display: none;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.pergunta-texto{
+    display: block;
+    font-size: 28px;
+    color: var(--texto);
+    margin-bottom: 20px;
+}
+
+footer {
+    padding: 15px;
+    color: #666;
     font-size: 16px;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-    font-size: 18px;
+    font-style: italic;
 }
 
-nav a:hover {
-    background-color: #007bff;
-    color: white;
+/* Responsividade para Tablets */
+@media (max-width: 1024px) {
+    body {
+        padding: 15px;
+    }
+
+    .container-principal {
+        width: 95%;
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    .escala {
+        gap: 10px;
+    }
+
+    .escala label {
+        width: 45px;
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .pergunta-texto {
+        font-size: 24px;
+    }
+
+    .container-formulario-inicial, .pergunta {
+        padding: 20px;
+    }
+
+    select, input[type="text"], input[type="password"], textarea {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    button {
+        padding: 12px;
+    }
 }
 
-.container-formulario-inicial {
-    margin: 15px 0;
+/* Responsividade para Celulares */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container-principal {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .escala {
+        gap: 8px;
+    }
+
+    .escala label {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .pergunta-texto {
+        font-size: 20px;
+    }
+
+    .container-formulario-inicial, .pergunta {
+        padding: 15px;
+    }
+
+    select, input[type="text"], input[type="password"], textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px;
+    }
 }
-
-.container-formulario-inicial button{
-    background-color: var(--cor-primaria);
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bolder;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-
-.container-formulario-inicial button:hover{
-    background-color: darkred;
-}
-
-.container-formulario-inicial select, .container-formulario-inicial button{
-    border: 1px solid #ccc;
-}
-
-.container-formulario-inicial{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 20%;
-
-}
-
-.container-formulario-inicial form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-

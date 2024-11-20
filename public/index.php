@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="container-principal">
 
-        <img src="css/img/logo-white.png" alt="Logo do Hospital" id="logo-hospital">
 
         <h1>Bem vindo(a) a pagina inicial do sistema de avaliações!</h1>
 
