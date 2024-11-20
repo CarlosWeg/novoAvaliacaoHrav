@@ -10,6 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     login($login,$senha);
 }
 
+if (isset($_GET['logout'])){
+    session_destroy();
+    header('Location: ../public/index.php');
+    exit();
+}
+
 function login($login,$senha){
     try{
         
@@ -20,9 +26,9 @@ function login($login,$senha){
         }
 
         $consulta = "SELECT id, senha
-                    FROM usuarios_administrativos
-                WHERE login = :login
-                    AND status = TRUE";
+                       FROM usuarios_administrativos
+                      WHERE login = :login
+                        AND status = TRUE";
 
         $stmt = $conexao->prepare($consulta);
         $stmt->bindValue(':login', $login, PDO::PARAM_STR);
@@ -54,13 +60,6 @@ function login($login,$senha){
     }
 }
 
-function logout(){
-    if (isset($_GET['logout'])){
-        session_destroy();
-        header('Location: ../public/index.php');
-        exit();
-    }
-}
 
 function cadastrarUsuario($usuario, $senha) {
     try {

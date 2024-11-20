@@ -2,8 +2,9 @@
 
 session_start();
 require_once '../src/perguntas.php';
+require_once '../src/funcoes.php';
 
-$perguntas = obterPerguntas();
+$perguntas = obterDados('PERGUNTAS',['STATUS' => 'TRUE'],'ID,ORDEM,TEXTO,STATUS','ORDEM ASC');
 $setor_id = $_SESSION['setor_id'];
 $dispositivo_id = $_SESSION['dispositivo_id'];
 
@@ -12,7 +13,6 @@ if (!isset($dispositivo_id) || !isset($setor_id)){
     header("Location: index.php");
     exit;
 }
-
 
 ?>
 

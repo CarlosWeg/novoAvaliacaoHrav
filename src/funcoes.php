@@ -2,121 +2,105 @@
 
     require_once 'db.php';
 
-    function obterSetores(){
-        try{
-            $conexao = conectarBD();
+    function obterDados($nomeTabela, $criterios = [], $colunas = '*', $ordem = '', $limite = null){
+    try {
+        $conexao = conectarBD();
 
-            if (!$conexao){
-                throw new Exception("Falha na conexão com o banco de dados");
+        if (!$conexao) {
+            throw new Exception("Falha na conexão com o banco de dados");
+        }
+
+        // Monta a consulta SQL dinamicamente
+        $consulta = "SELECT $colunas
+                       FROM $nomeTabela";
+
+        // Adiciona critérios de filtro (WHERE) dinamicamente
+        if (!empty($criterios)) {
+            $condicoes = [];
+            foreach ($criterios as $coluna => $valor) {
+                $condicoes[] = "$coluna = :$coluna";
+                //Exemplo de resultado: nome = :nome, idade = :idade;
             }
+            $consulta .= " WHERE " . implode(' AND ', $condicoes);
+            //Exemplo de resultado: SELECT * FROM usuarios WHERE nome = :nome AND idade = :idade;
+        }
 
-            $consulta = "SELECT *
-                           FROM SETORES
-                          WHERE STATUS = 'TRUE'
-                         ORDER BY NOME ASC";
+        // Adiciona ordenação, se especificado
+        if (!empty($ordem)) {
+            $consulta .= " ORDER BY $ordem";
+        }
 
-            $stmt = $conexao->prepare($consulta);
+        // Adiciona limite, se especificado
+        if ($limite) {
+            $consulta .= " LIMIT $limite";
+        }
 
-            if (!$stmt->execute()){
-                throw new Exception("Erro ao executar a consulta");
-            }
+        $stmt = $conexao->prepare($consulta);
 
-            $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Associa os valores dos critérios ao prepared statement
+        foreach ($criterios as $coluna => $valor) {
+            $stmt->bindValue(":$coluna", $valor);
+        }
+        //$criterios = ['nome' => 'João', 'idade' => 25];
+        //Exemplo de resultado FINAL: SELECT * FROM usuarios WHERE nome = 'João' AND idade = 25
 
-            if (empty($setores)){
-                error_log("Nenhum setor ativo encontrado no banco de dados");
-                return [];
-            }
+        if (!$stmt->execute()) {
+            throw new Exception("Erro ao executar a consulta");
+        }
 
-            return $setores;
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        } catch (PDOException $e) {
-            error_log("Erro PDO ao obter setores: " . $e->getMessage());
-            throw new Exception("Erro ao buscar as setores no banco de dados");
+        if (empty($dados)) {
+            error_log("Nenhum registro encontrado na tabela $nomeTabela");
+            return [];
+        }
+
+        return $dados;
+    } catch (PDOException $e) {
+        error_log("Erro PDO ao obter dados da tabela $nomeTabela: " . $e->getMessage());
+        throw new Exception("Erro ao buscar os dados no banco de dados");
+    } catch (Exception $e) {
+        error_log("Erro ao obter dados da tabela $nomeTabela: " . $e->getMessage());
+        throw new Exception("Erro ao processar os dados");
+    } finally {
+        // Fecha a conexão
+        $conexao = null;
+    }
+}
+
+if (isset($_GET['desativar']) && isset($_GET['tabela'])) {
             
-        } catch (Exception $e) {
-            error_log("Erro ao obter setores: " . $e->getMessage());
-            throw new Exception("Erro ao processar os setores");
-        } finally {
-            // Fecha a conexão
-            $conexao = null;
-        }
-    }
+    try {
 
-    function obterDispositivos(){
-        try{
-            $conexao = conectarBD();
+        $id = (int)$_GET['desativar'];
+        $tabela = $_GET['tabela'];
+        
+        $conexao = conectarBD();
 
-            if (!$conexao){
-                throw new Exception("Falha na conexão com o banco de dados");
-            }
-
-            $consulta = "SELECT *
-                           FROM DISPOSITIVOS
-                          WHERE STATUS = 'TRUE'
-                         ORDER BY NOME ASC";
-
-            $stmt = $conexao->prepare($consulta);
-
-            if (!$stmt->execute()){
-                throw new Exception("Erro ao executar a consulta");
-            }
-
-            $dispositivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if (empty($dispositivos)){
-                error_log("Nenhum dispositivo ativo encontrado no banco de dados");
-                return [];
-            }
-
-            return $dispositivos;
-
-        } catch (PDOException $e) {
-            error_log("Erro PDO ao obter dispositivos: " . $e->getMessage());
-            throw new Exception("Erro ao buscar as dispositivos no banco de dados");
-            
-        } catch (Exception $e) {
-            error_log("Erro ao obter dispositivos: " . $e->getMessage());
-            throw new Exception("Erro ao processar os dispositivos");
-        } finally {
-            // Fecha a conexão
-            $conexao = null;
-        }
-    }
-
-    function obterUsuarios(){
-        try{
-            $conexao = conectarBD();
-
-            if (!$conexao){
-                throw new Exception('Falha na conexão com o banco de dados');
-            }
-
-            $consulta = "SELECT ID, LOGIN, STATUS
-                           FROM USUARIOS_ADMINISTRATIVOS
-                          ORDER BY ID";
-
-            $stmt = $conexao->prepare($consulta);
-
-            if (!$stmt->execute()){
-                throw new Exception("Erro ao executar a consulta");
-            }
-
-            $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $usuarios;
-
-        } catch (PDOException $e) {
-            erro_log("Erro PDO ao obter usuários: " . $e->getMessage());
-            throw new Exception('Erro ao buscar usuários no banco de dados');
-        } catch (Exception $e) {
-            error_log('Erro ao obter usuários: ' . $e->getMessage());
-            throw new Exception('Erro ao processar os usuários');
-        } finally{
-            $conexao = null;
+        if (!$conexao) {
+            throw new Exception("Falha na conexão com o banco de dados");
         }
 
+        $query = "UPDATE $tabela
+                     SET status = NOT STATUS
+                   WHERE id = :id";
+                   
+        $stmt = $conexao->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        $stmt->execute();
+
+        $conexao = null;
+        header('Location: ../public/admin.php');
+        exit();
+
+    } catch (PDOException $e) {
+
+        echo 'Erro na conexão: ' . $e->getMessage();
     }
+}
+
+    
 
     
     

@@ -3,8 +3,8 @@
 session_start();
 require_once '../src/funcoes.php';
 
-$setores = obterSetores();
-$dispositivos = obterDispositivos();
+$setores = obterDados('SETORES',['STATUS' => 'TRUE'], '*', 'NOME ASC');
+$dispositivos = obterDados('DISPOSITIVOS',['STATUS' => 'TRUE'], '*', 'NOME ASC');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $setor_id = filter_input(INPUT_POST,'setor_id', FILTER_VALIDATE_INT);

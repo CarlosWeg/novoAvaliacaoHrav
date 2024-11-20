@@ -11,7 +11,7 @@
         <img src="css/img/logo-white.png" alt="Logo do Hospital" id="logo-hospital">
         <h1>Ops! Algo deu errado.</h1>
         <p>Por favor, tente novamente.</p>
-        <a href="formulario.php" class="botao">Voltar ao início do Formulário</a>
+        <a href="index.php" class="botao">Voltar ao INÍCIO</a>
     </div>
 </body>
 </html>

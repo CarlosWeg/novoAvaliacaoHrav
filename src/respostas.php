@@ -19,27 +19,6 @@
                 throw new Exception("IDs inválidos fornecidos");
             }
 
-            // Cria um array com as verificações que precisam ser feitas
-            // cada elemento contém o nome da tabela e o ID a ser verificado
-            $verificacoes = [
-                ['tabela' => 'setores', 'id' => $setor_id],
-                ['tabela' => 'perguntas', 'id' => $pergunta_id],
-                ['tabela' => 'dispositivos', 'id' => $dispositivo_id]
-            ];
-
-            // Loop para verificar se cada ID existe em sua  tabela
-            foreach ($verificacoes as $verificacao) {
-                // Prepara a consulta SQL para verificar a existência do ID
-                $consulta = "SELECT id FROM {$verificacao['tabela']} WHERE id = ?";
-                $stmt = $conexao->prepare($consulta);
-                $stmt->execute([$verificacao['id']]);
-
-                // fetch() retorna false se não encontrar resultados
-                if (!$stmt->fetch()) {
-                    throw new Exception("ID não encontrado na tabela {$verificacao['tabela']}");
-                }
-            }
-
             // Prepara a consulta SQL
             $consulta = "INSERT INTO avaliacoes (setor_id, pergunta_id, dispositivo_id, resposta, feedback) 
                         VALUES (?, ?, ?, ?, ?)";
@@ -91,7 +70,7 @@
                 $feedback_geral = null;
             }            
 
-            // Pega o feedback (opcional)
+            // Pega o feedback (que é opcional)
             $feedback_geral = isset($_POST['feedback']) ? trim($_POST['feedback']) : null;
 
             
@@ -126,39 +105,6 @@
             error_log("Erro ao processar respostas: " . $e->getMessage());
             header('Location: ../public/erro.php');
             exit;
-        }
-    }
-
-    function obterAvaliacoes(){
-        try{
-            $conexao = conectarBD();
-
-            if (!$conexao){
-                throw new Exception('Falha na conexão com o banco de dados');
-            }
-
-            $consulta = "SELECT *
-                           FROM AVALIACOES
-                          ORDER BY DATA_HORA DESC";
-
-            $stmt = $conexao->prepare($consulta);
-
-            if (!$stmt->execute()) {
-                throw new Exception("Erro ao executar a consulta");
-            }
-
-            $respostas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $respostas;
-
-        } catch (PDOEception $e){
-            error_log('Erro PDO ao obter respostas: ' . $e->getMessage());
-            throw new Exception('Erro ao buscar as respostas no banco de dados');
-        } catch (Exception $e) {
-            error_log('Erro ao obter respostas:' . $e->getMessage());
-            throw new Exception("Erro ao processar as perguntas");
-        } finally{
-            $conexao = null;
         }
     }
 
