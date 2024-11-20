@@ -6,239 +6,200 @@
     font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
-:root {
-    --primary: lightcoral;
-    --primary-dark: #e06666;
-    --primary-light: #ffd1d1;
-    --text-dark: #2d3436;
-    --text-light: #ffffff;
-    --bg-light: #fff9f9;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+:root{
+    --primaria: lightcoral;
+    --primaria-escura: #e06666;
+    --primaria-clara: #ffd1d1;
+    --fundo: white;
+    --texto-escuro: #333333;
+    --texto-claro: white;
+    --sombra: rgba(238, 110, 110, 0.2);
+    --transicao: all 0.3s ease;
 }
 
 body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: var(--fundo);
+    color: var(--texto-escuro);
     line-height: 1.6;
+    padding-top: 60px;
 }
 
-/* Estilização do cabeçalho */
-header {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    padding: 1.2rem 0;
-    position: sticky;
-    top: 0;
+header{
+    background-color: var(--primaria);
+    padding: 20px 0;
+    position: fixed;
+    top:0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(240, 128, 128, 0.2);
+    box-shadow: 0 4px 20px rgba(--sombra);
+    width: 100%;
+
 }
 
-.paginas_cabecalho {
+.paginas_cabecalho{
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    padding: 0 1rem;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 15px;
 }
 
-.paginas_cabecalho a {
-    color: var(--text-light);
+.paginas_cabecalho a{
+    color: var(--texto-claro);
     text-decoration: none;
-    padding: 0.7rem 1.4rem;
+    padding: 10px 20px;
     border-radius: 50px;
-    font-weight: 500;
-    transition: var(--transition);
+    transition: var(--transicao);
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.paginas_cabecalho a:hover {
+.paginas_cabecalho a:hover{
     background-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilização das seções */
-section {
+
+section{
     max-width: 1300px;
-    margin: 2.5rem auto;
-    padding: 2.5rem;
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(240, 128, 128, 0.1);
-    transition: var(--transition);
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--fundo);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px var(--sombra);
+    transition: var(--transicao);
+    scroll-margin-top: 100px;
 }
 
-section:hover {
+section:hover{
     transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(240, 128, 128, 0.15);
+    box-shadow: 0 12px 40px rgba(238, 110, 110, 0.4);
 }
 
-h3 {
-    color: var(--primary-dark);
-    margin-bottom: 2rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 3px solid var(--primary-light);
-    font-size: 1.8rem;
-    font-weight: 600;
+h3{
+    color: var(--primaria-escura);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--primaria-clara);
+    font-size: 30px;
+    text-align: center;
+    justify-content: center;
 }
 
-/* Estilização das tabelas */
-table {
+/* Estilização das Tabelas */
+table{
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 2.5rem;
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    background-color: var(--fundo);
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
 }
 
-th, td {
-    padding: 1.2rem 1.5rem;
-    text-align: left;
+th,td{
+    padding: 15px 20px;
+    text-align: center;
+    justify-content: center;
 }
 
-th {
-    background-color: var(--primary);
-    color: var(--text-light);
-    font-weight: 500;
+th{
+    background-color: var(--primaria);
+    color: var(--texto-claro);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
+    font-size: 16px;
 }
 
+/* Seleciona linhas pares */
 tr:nth-child(even) {
-    background-color: var(--bg-light);
+    background-color: rgba(240, 128, 128, 0.130);
 }
 
-tr:hover {
-    background-color: var(--primary-light);
+tr:hover{
+    background-color: var(--primaria-clara);
 }
 
-/* Estilização dos links nas tabelas */
-table a {
-    color: var(--primary);
+table a{
+    color: var(--primaria);
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--primary);
+    padding: 8px 16px;
+    border: 2px solid var(--primaria);
     border-radius: 50px;
-    transition: var(--transition);
-    font-weight: 500;
-    font-size: 0.9rem;
+    transition: var(--transicao);
+    font-size: 14px;
 }
 
-table a:hover {
-    background-color: var(--primary);
-    color: var(--text-light);
+table a:hover{
+    background-color: var(--primaria);
+    color: var(--texto-claro);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(240, 128, 128, 0.2);
+    box-shadow: 0 4px 12px var(--sombra);
 }
 
-/* Estilização dos formulários */
-form {
+form{
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 10px;
     max-width: 600px;
-    margin: 2rem auto;
-    padding: 2.5rem;
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(240, 128, 128, 0.1);
+    margin: 30px auto;
+    padding: 10px;
+    background-color: var(--fundo);
+    border-radius: 15px;
+    box-shadow: var(--fundo);
 }
 
-label {
-    font-weight: 500;
-    color: var(--text-dark);
-    font-size: 1.1rem;
+label{
+    color: var(--texto-escuro);
+    font-size: 18px;
 }
 
-input[type="text"],
-input[type="number"] {
-    padding: 1rem 1.2rem;
-    border: 2px solid var(--primary-light);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: var(--transition);
-    background-color: var(--bg-light);
+input[type="text"], input[type="number"]{
+    padding: 15px 20px;
+    border: 2px solid var(--primaria-clara);
+    border-radius: 10px;
+    font-size: 16px;
+    transition: var(--transicao);
+    background-color: var(--fundo);
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="text"]:focus, input[type="number"]:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px var(--primary-light);
+    border-color: var(--primaria);
+    box-shadow: 0 0 0 4px var(--primaria-clara);
 }
 
-input[type="submit"] {
-    background-color: var(--primary);
-    color: var(--text-light);
-    padding: 1.2rem;
+input[type="submit"]{
+    background-color: var(--primaria);
+    color: var(--texto-claro);
+    padding: 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: var(--transition);
+    font-size: 18px;
+    transition: var(--transicao);
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-input[type="submit"]:hover {
-    background-color: var(--primary-dark);
+input[type="submit"]:hover{
+    background-color: var(--primaria-escura);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(240, 128, 128, 0.3);
+    box-shadow: 0 4px 12px rgba(--sombra);
 }
 
 /* Animações */
-@keyframes fadeIn {
-    from {
+@keyframes fadeIn{
+    from{
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-20px);
     }
-    to {
+    to{
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-section {
-    animation: fadeIn 0.6s ease-out forwards;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .paginas_cabecalho {
-        flex-direction: column;
-        align-items: center;
-        padding: 0 1rem;
-    }
-    
-    .paginas_cabecalho a {
-        width: 100%;
-        text-align: center;
-    }
-    
-    section {
-        margin: 1.5rem;
-        padding: 1.5rem;
-    }
-    
-    table {
-        display: block;
-        overflow-x: auto;
-    }
-    
-    th, td {
-        min-width: 140px;
-        font-size: 0.9rem;
-    }
-    
-    form {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
+section{
+    animation: fadeIn 0.6 ease;
 }
 
 /* Scrollbar personalizada */
@@ -247,15 +208,16 @@ section {
     height: 10px;
 }
 
+/* Trilha*/
 ::-webkit-scrollbar-track {
-    background: var(--bg-light);
+    background: var(--fundo);
 }
-
+/* Indicador*/
 ::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: var(--primaria);
     border-radius: 5px;
 }
-
+/* Indicador Hover*/
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-dark);
+    background: var(--primaria-escura);
 }

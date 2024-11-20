@@ -76,39 +76,6 @@
 
     </section>
 
-    <section id = "respostas">
-        <h3>Respostas</h3>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Setor ID</th>
-                <th>Pergunta ID</th>
-                <th>Dispositivo ID</th>
-                <th>Resposta / Avaliação</th>
-                <th>Feedback (opcional)</th>
-                <th>Data / Hora</th>
-            </tr>
-
-            
-                <?php
-                    foreach ($respostas as $resposta){
-                        echo '<tr>';
-                        echo '<td>' . $resposta['id'] .'</td>';
-                        echo '<td>' . $resposta['setor_id'] .'</td>';
-                        echo '<td>' . $resposta['pergunta_id'] .'</td>';
-                        echo '<td>' . $resposta['dispositivo_id'] .'</td>';
-                        echo '<td>' . $resposta['resposta'] .'</td>';
-                        echo '<td>' . $resposta['feedback'] .'</td>';
-                        echo '<td>' . $resposta['data_hora'] .'</td>';
-                        echo '</tr>';
-                    }
-
-                ?>
-
-        </table>
-
-    </section>
-
     <section id = "setores">
         <h3>Setores</h3>
         <table>
@@ -206,7 +173,38 @@
 
     </section>
 
+    <section id = "respostas">
+        <h3>Respostas</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Setor ID</th>
+                <th>Pergunta ID</th>
+                <th>Dispositivo ID</th>
+                <th>Resposta / Avaliação</th>
+                <th>Feedback (opcional)</th>
+                <th>Data / Hora</th>
+            </tr>
 
+            
+                <?php
+                    foreach ($respostas as $resposta){
+                        echo '<tr>';
+                        echo '<td>' . $resposta['id'] .'</td>';
+                        echo '<td>' . $resposta['setor_id'] .'</td>';
+                        echo '<td>' . $resposta['pergunta_id'] .'</td>';
+                        echo '<td>' . $resposta['dispositivo_id'] .'</td>';
+                        echo '<td>' . $resposta['resposta'] .'</td>';
+                        echo '<td>' . $resposta['feedback'] .'</td>';
+                        echo '<td>' . $resposta['data_hora'] .'</td>';
+                        echo '</tr>';
+                    }
+
+                ?>
+
+        </table>
+
+    </section>
 
 
 </body>

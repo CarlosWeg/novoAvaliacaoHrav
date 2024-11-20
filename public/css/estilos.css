@@ -4,7 +4,7 @@
     --primaria-clara: #ffd1d1;
     --fundo: white;
     --texto: #333333;
-    --sombra: rgba(238, 110, 110, 0.397);
+    --sombra: rgba(238, 110, 110, 0.2);
     --transicao: all 0.3s ease;
 }
 
@@ -294,4 +294,25 @@ footer {
     button {
         padding: 10px;
     }
+}
+
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Trilha*/
+::-webkit-scrollbar-track {
+    background: var(--fundo);
+}
+/* Indicador*/
+::-webkit-scrollbar-thumb {
+    background: var(--primaria);
+    border-radius: 5px;
+}
+/* Indicador Hover*/
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primaria-escura);
 }
