@@ -133,5 +133,38 @@
         }
     }
 
+    function obterAvaliacoes(){
+        try{
+            $conexao = conectarBD();
+
+            if (!$conexao){
+                throw new Exception('Falha na conexão com o banco de dados');
+            }
+
+            $consulta = "SELECT *
+                           FROM AVALIACOES
+                          ORDER BY DATA_HORA DESC";
+
+            $stmt = $conexao->prepare($consulta);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Erro ao executar a consulta");
+            }
+
+            $respostas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $respostas;
+
+        } catch (PDOEception $e){
+            error_log('Erro PDO ao obter respostas: ' . $e->getMessage());
+            throw new Exception('Erro ao buscar as respostas no banco de dados');
+        } catch (Exception $e) {
+            error_log('Erro ao obter respostas:' . $e->getMessage());
+            throw new Exception("Erro ao processar as perguntas");
+        } finally{
+            $conexao = null;
+        }
+    }
+
     // Executa o processamento
     processarRespostas();

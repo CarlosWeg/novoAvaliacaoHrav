@@ -2,6 +2,7 @@
 
 session_start();
 require_once '../src/funcoes.php';
+
 $setores = obterSetores();
 $dispositivos = obterDispositivos();
 
@@ -37,15 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="css/img/logo-white.png" alt="Logo do Hospital" id="logo-hospital">
 
         <h1>Bem vindo(a) a pagina inicial do sistema de avaliações!</h1>
-        <h3>Como gostaria de prosseguir?</h3>
 
-
-        <div class = "selecao-formulario">
-            <h3>Iniciar formulário</h3>
+        <div class = "container-formulario-inicial">
             <form id = "formulario-setor-dispositivo"  method = "POST">
 
                 <h3>Selecione o setor:</h3>
-                <select name="setor_id">
+                <select name="setor_id" required>
                 
                         <?php foreach ($setores as $index=>$setor): ?>
                             <option value = "<?=$setor['id']?>"><?=$setor['nome']?></option>
@@ -54,9 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 </select>
 
-
                 <h3>Selecione o dispositivo:</h3>
-                <select name="dispositivo_id">
+                <select name="dispositivo_id" required>
                 
                         <?php foreach ($dispositivos as $index=>$dispositivo): ?>
                             <option value = "<?=$dispositivo['id']?>"><?=$dispositivo['nome']?></option>
@@ -70,9 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
         </div>
 
-        <div class = "autenticador-admin">
+        <div class = "container-formulario-inicial">
 
-            <a href = "admin.php">Acessar painel de Administrador</a>
+            <form id = "formulario-autenticador" method = "POST" action = "../src/auth.php">
+
+                <label for = "login">Informe o usuario:</label>
+                <input type = "text" name = "login" required>
+
+                <label for = "senha">Informe a senha:</label>
+                <input type = "password" name = "senha" required>
+
+                <button type="submit">Prosseguir para Painel Admin</button>
+
+            </form>
+
 
         </div>
 
