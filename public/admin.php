@@ -9,6 +9,9 @@
     $perguntas = obterDados('PERGUNTAS',[],'ID,ORDEM,TEXTO,STATUS','ORDEM ASC');
     $respostas = obterDados('AVALIACOES',[],'*','DATA_HORA DESC');
     $usuarios = obterDados('USUARIOS_ADMINISTRATIVOS',[],'ID,LOGIN,STATUS','ID ASC');
+    $setores = obterDados('SETORES',[], '*', 'ID ASC');
+    $dispositivos = obterDados('DISPOSITIVOS',[], '*', 'ID ASC');
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +28,9 @@
         <nav class = "paginas_cabecalho">
                 <a href = "#perguntas">Perguntas</a>
                 <a href = "#respostas">Respostas</a>
-                <a href = "#usuarios_administrativos">Usuarios Administrativos</a>
+                <a href = "#setores">Setores</a>
+                <a href = "#dispositivos">Dispositivos</a>
+                <a href = "#usuarios_administrativos">Usuários Administrativos</a>
                 <a href="../src/auth.php?logout=true">Sair</a>
         </nav>
     </header>
@@ -39,9 +44,8 @@
                 <th>Texto</th>
                 <th>Ordem</th>
                 <th>Status</th>
-                <th colspan = "2">Ações</th>
+                <th>Ações</th>
             </tr>
-
             
                 <?php
                     foreach ($perguntas as $pergunta){
@@ -57,6 +61,18 @@
                 ?>
 
         </table>
+
+        <form id = "cadastrar-pergunta" method = "POST" action = "../src/funcoes.php">
+            <label for = "texto">Informe a pergunta</label>
+            <input type = "text" name = "texto" required>
+
+            <label for = "ordem">Informe a Ordem:</label>
+            <input type = "number" name = "ordem" required>
+            
+            <input type = "hidden" name = "formulario" value = "perguntas">
+            <input type = "submit" value = "Cadastrar">
+
+        </form>
 
     </section>
 
@@ -90,6 +106,75 @@
                 ?>
 
         </table>
+
+    </section>
+
+    <section id = "setores">
+        <h3>Setores</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            
+                <?php
+                    foreach ($setores as $setor){
+                        echo '<tr>';
+                        echo '<td>' . $setor['id'] .'</td>';
+                        echo '<td>' . $setor['nome'] .'</td>';
+                        echo '<td>' . ($setor['status'] ? 'Ativo' : 'Inativo') . '</td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=setores&desativar=' . $setor['id'] . '">' . ($setor['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '</tr>';
+                    }
+
+                ?>
+
+        </table>
+
+        <form id = "cadastrar-setor" method = "POST" action = "../src/funcoes.php">
+            <label for = "nome">Informe o NOME do setor:</label>
+            <input type = "text" name = "nome" required>
+            
+            <input type = "hidden" name = "formulario" value = "setores">
+            <input type = "submit" value = "Cadastrar">
+        </form>  
+
+
+    </section>
+
+    <section id = "dispositivos">
+        <h3>Dispositivos</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            
+                <?php
+                    foreach ($dispositivos as $dispositivo){
+                        echo '<tr>';
+                        echo '<td>' . $dispositivo['id'] .'</td>';
+                        echo '<td>' . $dispositivo['nome'] .'</td>';
+                        echo '<td>' . ($dispositivo['status'] ? 'Ativo' : 'Inativo') . '</td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=dispositivos&desativar=' . $dispositivo['id'] . '">' . ($dispositivo['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '</tr>';
+                    }
+
+                ?>
+
+        </table>
+
+        <form id = "cadastrar-dispositivos" method = "POST" action = "../src/funcoes.php">
+            <label for = "nome">Informe o NOME do dispositivo:</label>
+            <input type = "text" name = "nome" required>
+            
+            <input type = "hidden" name = "formulario" value = "dispositivos">
+            <input type = "submit" value = "Cadastrar">
+        </form>  
 
     </section>
 

@@ -68,6 +68,71 @@
     }
 }
 
+function cadastrarItem($tabela, $dados, $secaoId){
+    try {
+        $conexao = conectarBD();
+
+        if (!$conexao) {
+            throw new Exception("Falha na conexão com o banco de dados");
+        }
+
+        $colunas = implode(", ", array_keys($dados));
+        $placeholders = ":" . implode(", :", array_keys($dados));
+
+        $sql = "INSERT INTO $tabela ($colunas) VALUES ($placeholders)";
+        $stmt = $conexao->prepare($sql);
+
+        $stmt->execute($dados);
+
+        header('Location: ../public/admin.php' . $secaoId);
+        exit;
+
+    } catch (PDOException $e) {
+        echo("Erro ao inserir item: " . $e->getMessage());
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $formulario = $_POST ['formulario'];
+
+    $dados = [];
+    $tabela = '';
+    $secaoId = '';
+
+    switch($formulario){
+
+        case 'perguntas':
+            $tabela = 'PERGUNTAS';
+            $secaoId = '#perguntas';
+            $dados = [
+                'texto' =>$_POST['texto'],
+                'ordem' =>$_POST['ordem'],
+                'status' => TRUE
+            ];
+        break;  
+        
+        case 'setores':
+            $tabela = 'setores';
+            $secaoId = '#setores';
+            $dados = [
+                'nome' => $_POST['nome'],
+            ];
+        break;
+        
+        case 'dispositivos':
+            $tabela = 'dispositivos';
+            $secaoId = '#dispositivos';
+            $dados = [
+                'nome' => $_POST['nome'],
+            ];
+        break;
+    }
+
+    cadastrarItem($tabela, $dados, $secaoId);
+    
+}
+
+
 if (isset($_GET['desativar']) && isset($_GET['tabela'])) {
             
     try {
@@ -100,7 +165,6 @@ if (isset($_GET['desativar']) && isset($_GET['tabela'])) {
     }
 }
 
-    
 
     
     
