@@ -27,10 +27,10 @@
     <header>
         <nav class = "paginas_cabecalho">
                 <a href = "#perguntas">Perguntas</a>
-                <a href = "#respostas">Respostas</a>
                 <a href = "#setores">Setores</a>
                 <a href = "#dispositivos">Dispositivos</a>
                 <a href = "#usuarios_administrativos">Usuários Administrativos</a>
+                <a href = "#respostas">Respostas</a>
                 <a href="../src/auth.php?logout=true">Sair</a>
         </nav>
     </header>
@@ -44,7 +44,7 @@
                 <th>Texto</th>
                 <th>Ordem</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th colspan = "2">Ações</th>
             </tr>
             
                 <?php
@@ -55,6 +55,7 @@
                         echo '<td>' . $pergunta['ordem'] .'</td>';
                         echo '<td>' . ($pergunta['status'] ? 'Ativo' : 'Inativo') . '</td>';
                         echo '<td><a href="../src/funcoes.php?tabela=perguntas&secaoId=perguntas&desativar=' . $pergunta['id'] . '">' . ($pergunta['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=perguntas&secaoId=perguntas&remover=' . $pergunta['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                         echo '</tr>';
                     }
 
@@ -63,7 +64,7 @@
         </table>
 
         <form id = "cadastrar-pergunta" method = "POST" action = "../src/funcoes.php">
-            <label for = "texto">Informe a pergunta</label>
+            <label for = "texto">Informe a pergunta:</label>
             <input type = "text" name = "texto" required>
 
             <label for = "ordem">Informe a ordem:</label>
@@ -83,7 +84,7 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th colspan = "2">Ações</th>
             </tr>
             
                 <?php
@@ -93,7 +94,7 @@
                         echo '<td>' . $setor['nome'] .'</td>';
                         echo '<td>' . ($setor['status'] ? 'Ativo' : 'Inativo') . '</td>';
                         echo '<td><a href="../src/funcoes.php?tabela=setores&secaoId=setores&desativar=' . $setor['id'] . '">' . ($setor['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
-                        echo '</tr>';
+                        echo '<td><a href="../src/funcoes.php?tabela=setores&secaoId=setores&remover=' . $setor['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                     }
 
                 ?>
@@ -101,7 +102,7 @@
         </table>
 
         <form id = "cadastrar-setor" method = "POST" action = "../src/funcoes.php">
-            <label for = "nome">Informe o NOME do setor:</label>
+            <label for = "nome">Informe o nome do setor:</label>
             <input type = "text" name = "nome" required>
             
             <input type = "hidden" name = "formulario" value = "setores">
@@ -118,7 +119,7 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th colspan = "2">Ações</th>
             </tr>
             
                 <?php
@@ -128,6 +129,7 @@
                         echo '<td>' . $dispositivo['nome'] .'</td>';
                         echo '<td>' . ($dispositivo['status'] ? 'Ativo' : 'Inativo') . '</td>';
                         echo '<td><a href="../src/funcoes.php?tabela=dispositivos&secaoId=dispositivos&desativar=' . $dispositivo['id'] . '">' . ($dispositivo['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=dispositivos&secaoId=dispositivos&remover=' . $dispositivo['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                         echo '</tr>';
                     }
 
@@ -136,7 +138,7 @@
         </table>
 
         <form id = "cadastrar-dispositivos" method = "POST" action = "../src/funcoes.php">
-            <label for = "nome">Informe o NOME do dispositivo:</label>
+            <label for = "nome">Informe o nome do dispositivo:</label>
             <input type = "text" name = "nome" required>
             
             <input type = "hidden" name = "formulario" value = "dispositivos">
@@ -152,7 +154,7 @@
                 <th>ID</th>
                 <th>Login</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th colspan = "2">Ações</th>
             </tr>
             
                 <?php
@@ -162,6 +164,7 @@
                         echo '<td>' . $usuario['login'] .'</td>';
                         echo '<td>' . ($usuario['status'] ? 'Ativo' : 'Inativo') . '</td>';
                         echo '<td><a href="../src/funcoes.php?tabela=usuarios_administrativos&secaoId=usuarios_administrativos&desativar=' . $usuario['id'] . '">' . ($usuario['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=usuarios&secaoId=usuarios&remover=' . $usuario['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                         echo '</tr>';
                     }
 
@@ -171,7 +174,7 @@
 
 
         <form id = "cadastrar-usuarios_administrativos" method = "POST" action = "../src/funcoes.php">
-            <label for = "usuario">Informe o usuario:</label>
+            <label for = "usuario">Informe o usuário:</label>
             <input type = "text" name = "usuario" required>
 
             <label for = "senha">Informe a senha:</label>
@@ -195,6 +198,7 @@
                 <th>Resposta / Avaliação</th>
                 <th>Feedback (opcional)</th>
                 <th>Data / Hora</th>
+                <th>Ações</th>
             </tr>
 
             
@@ -208,6 +212,7 @@
                         echo '<td>' . $resposta['resposta'] .'</td>';
                         echo '<td>' . $resposta['feedback'] .'</td>';
                         echo '<td>' . $resposta['data_hora'] .'</td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=avaliacoes&secaoId=respostas&remover=' . $resposta['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                         echo '</tr>';
                     }
 
@@ -216,8 +221,6 @@
         </table>
 
     </section>
-
-    <a href="../src/auth.php?logout=true">Sair</a>
 
 
 </body>

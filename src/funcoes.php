@@ -222,6 +222,39 @@ if (isset($_GET['desativar']) && isset($_GET['tabela'])&& isset($_GET['secaoId']
         echo 'Erro na conexão: ' . $e->getMessage();
     }
 }
+
+
+if (isset($_GET['remover']) && isset($_GET['tabela'])&& isset($_GET['secaoId'])) {
+            
+    try {
+
+        $id = (int)$_GET['remover'];
+        $secaoId = $_GET['secaoId'];
+        $tabela = $_GET['tabela'];
+        
+        $conexao = conectarBD();
+
+        if (!$conexao) {
+            throw new Exception("Falha na conexão com o banco de dados");
+        }
+
+        $query = "DELETE FROM $tabela
+                   WHERE id = :id";
+                   
+        $stmt = $conexao->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        $stmt->execute();
+
+        $conexao = null;
+        header('Location: ../public/admin.php#' . $secaoId);
+        exit();
+
+    } catch (PDOException $e) {
+
+        echo 'Erro na conexão: ' . $e->getMessage();
+    }
+}
     
     
 
