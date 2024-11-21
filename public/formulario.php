@@ -10,6 +10,7 @@ $dispositivo_id = $_SESSION['dispositivo_id'];
 
 
 if (!isset($dispositivo_id) || !isset($setor_id)){
+    session_destroy();
     header("Location: index.php");
     exit;
 }

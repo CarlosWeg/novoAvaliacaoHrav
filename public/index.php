@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+session_unset();
 require_once '../src/funcoes.php';
 
 $setores = obterDados('SETORES',['STATUS' => 'TRUE'], '*', 'NOME ASC');

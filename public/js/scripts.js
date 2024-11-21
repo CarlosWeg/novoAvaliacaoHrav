@@ -54,11 +54,20 @@ function finalizarFormulario() {
     document.getElementById('formulario').submit();
 }
 
-//Recarregar pagina de agradecimento após 5 segundos
+//Recarregar pagina de agradecimento após 5 segundos, timer dinâmico na tela
 window.onload = function(){
     if (document.getElementById('pagina-agradecimento')){
-        setTimeout(()=>{
-            window.location.href=("formulario.php");
-        },5000);
+        let segundos = 5;
+        const elementoTimer = document.getElementById('elementoTimer');
+    
+        const timer = setInterval(function(){
+            segundos--;
+            elementoTimer.textContent = segundos;
+    
+            if (segundos <= 0){
+                clearInterval(timer);
+                window.location.href = "formulario.php";
+            }
+        }, 1000);
     }
-}
+};
