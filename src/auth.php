@@ -62,37 +62,6 @@ function login($login,$senha){
 }
 
 
-function cadastrarUsuario($usuario, $senha) {
-    try {
-
-        $conexao = conectarBD();
-
-        if (!$conexao) {
-            throw new Exception("Falha na conexão com o banco de dados.");
-        }
-
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-        $query = "INSERT INTO usuarios_administrativos (login, senha) VALUES (:usuario, :senha)";
-
-        $stmt = $conexao->prepare($query);
-
-        // Vinculando os valores aos placeholders
-        $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
-        $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
-
-        if ($stmt->execute()) {
-            echo "Usuário cadastrado com sucesso!";
-        } else {
-            throw new Exception("Erro ao executar a consulta.");
-        }
-
-    } catch (PDOException $e) {
-        echo "Erro ao cadastrar usuário: " . $e->getMessage();
-    } catch (Exception $e) {
-        echo "Erro: " . $e->getMessage();
-    }
-}
 
 function verificarAutenticacao() {
     if (!isset($_SESSION['usuario_logado'])) {

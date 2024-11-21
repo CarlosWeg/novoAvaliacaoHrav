@@ -54,7 +54,7 @@
                         echo '<td>' . $pergunta['texto'] .'</td>';
                         echo '<td>' . $pergunta['ordem'] .'</td>';
                         echo '<td>' . ($pergunta['status'] ? 'Ativo' : 'Inativo') . '</td>';
-                        echo '<td><a href="../src/funcoes.php?tabela=perguntas&desativar=' . $pergunta['id'] . '">' . ($pergunta['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=perguntas&secaoId=perguntas&desativar=' . $pergunta['id'] . '">' . ($pergunta['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
                         echo '</tr>';
                     }
 
@@ -66,7 +66,7 @@
             <label for = "texto">Informe a pergunta</label>
             <input type = "text" name = "texto" required>
 
-            <label for = "ordem">Informe a Ordem:</label>
+            <label for = "ordem">Informe a ordem:</label>
             <input type = "number" name = "ordem" required>
             
             <input type = "hidden" name = "formulario" value = "perguntas">
@@ -92,7 +92,7 @@
                         echo '<td>' . $setor['id'] .'</td>';
                         echo '<td>' . $setor['nome'] .'</td>';
                         echo '<td>' . ($setor['status'] ? 'Ativo' : 'Inativo') . '</td>';
-                        echo '<td><a href="../src/funcoes.php?tabela=setores&desativar=' . $setor['id'] . '">' . ($setor['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=setores&secaoId=setores&desativar=' . $setor['id'] . '">' . ($setor['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
                         echo '</tr>';
                     }
 
@@ -127,7 +127,7 @@
                         echo '<td>' . $dispositivo['id'] .'</td>';
                         echo '<td>' . $dispositivo['nome'] .'</td>';
                         echo '<td>' . ($dispositivo['status'] ? 'Ativo' : 'Inativo') . '</td>';
-                        echo '<td><a href="../src/funcoes.php?tabela=dispositivos&desativar=' . $dispositivo['id'] . '">' . ($dispositivo['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=dispositivos&secaoId=dispositivos&desativar=' . $dispositivo['id'] . '">' . ($dispositivo['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
                         echo '</tr>';
                     }
 
@@ -161,13 +161,25 @@
                         echo '<td>' . $usuario['id'] .'</td>';
                         echo '<td>' . $usuario['login'] .'</td>';
                         echo '<td>' . ($usuario['status'] ? 'Ativo' : 'Inativo') . '</td>';
-                        echo '<td><a href="../src/funcoes.php?tabela=usuarios_administrativos&desativar=' . $usuario['id'] . '">' . ($usuario['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=usuarios_administrativos&secaoId=usuarios_administrativos&desativar=' . $usuario['id'] . '">' . ($usuario['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
                         echo '</tr>';
                     }
 
                 ?>
 
         </table>
+
+
+        <form id = "cadastrar-usuarios_administrativos" method = "POST" action = "../src/funcoes.php">
+            <label for = "usuario">Informe o usuario:</label>
+            <input type = "text" name = "usuario" required>
+
+            <label for = "senha">Informe a senha:</label>
+            <input type = "password" name = "senha" required>
+            
+            <input type = "hidden" name = "formulario" value = "usuarios_administrativos">
+            <input type = "submit" value = "Cadastrar">
+        </form>  
 
 
     </section>

@@ -95,11 +95,46 @@ function cadastrarItem($tabela, $dados, $secaoId){
 
         $stmt->execute($dados);
 
-        header('Location: ../public/admin.php' . $secaoId);
+        header('Location: ../public/admin.php#' . $secaoId);
         exit;
 
     } catch (PDOException $e) {
         echo("Erro ao inserir item: " . $e->getMessage());
+    }
+}
+
+function cadastrarUsuario($usuario, $senha) {
+    try {
+
+        $conexao = conectarBD();
+
+        if (!$conexao) {
+            throw new Exception("Falha na conexão com o banco de dados.");
+        }
+
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO usuarios_administrativos (login, senha) VALUES (:usuario, :senha)";
+
+        $stmt = $conexao->prepare($query);
+
+        // Vinculando os valores aos placeholders
+        $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            echo "Usuário cadastrado com sucesso!";
+            header('Location: ../public/admin.php#usuarios_administrativos');
+            exit;
+        } else {
+            throw new Exception("Erro ao executar a consulta.");
+        }
+
+
+    } catch (PDOException $e) {
+        echo "Erro ao cadastrar usuário: " . $e->getMessage();
+    } catch (Exception $e) {
+        echo "Erro: " . $e->getMessage();
     }
 }
 
@@ -114,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['formulario'])) {
 
         case 'perguntas':
             $tabela = 'PERGUNTAS';
-            $secaoId = '#perguntas';
+            $secaoId = 'perguntas';
             $dados = [
                 'texto' =>sanitizarEntrada($_POST['texto'],'string'),
                 'ordem' =>sanitizarEntrada($_POST['ordem'],'inteiro'),
@@ -124,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['formulario'])) {
         
         case 'setores':
             $tabela = 'setores';
-            $secaoId = '#setores';
+            $secaoId = 'setores';
             $dados = [
                 'nome' => sanitizarEntrada($_POST['nome'],'string')
             ];
@@ -132,11 +167,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['formulario'])) {
         
         case 'dispositivos':
             $tabela = 'dispositivos';
-            $secaoId = '#dispositivos';
+            $secaoId = 'dispositivos';
             $dados = [
                 'nome' => sanitizarEntrada($_POST['nome'],'string')
             ];
         break;
+
+        case 'usuarios_administrativos':
+            $tabela = 'usuarios_administrativos';
+            $secaoId = 'usuarios_administrativos';
+            $dados = [
+                'login' => sanitizarEntrada($_POST['usuario'],'string'),
+                'senha' => sanitizarEntrada($_POST['senha'],'string')
+            ];
+            cadastrarUsuario($dados['login'], $dados['senha']);
+            return;
+            break;
     }
 
     cadastrarItem($tabela, $dados, $secaoId);
@@ -144,11 +190,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['formulario'])) {
 }
 
 
-if (isset($_GET['desativar']) && isset($_GET['tabela'])) {
+if (isset($_GET['desativar']) && isset($_GET['tabela'])&& isset($_GET['secaoId'])) {
             
     try {
 
         $id = (int)$_GET['desativar'];
+        $secaoId = $_GET['secaoId'];
         $tabela = $_GET['tabela'];
         
         $conexao = conectarBD();
@@ -167,7 +214,7 @@ if (isset($_GET['desativar']) && isset($_GET['tabela'])) {
         $stmt->execute();
 
         $conexao = null;
-        header('Location: ../public/admin.php');
+        header('Location: ../public/admin.php#' . $secaoId);
         exit();
 
     } catch (PDOException $e) {
