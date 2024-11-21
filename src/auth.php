@@ -3,10 +3,11 @@
 session_start();
 
 require_once 'db.php';
+require_once 'funcoes.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $login = $_POST['login'];
-    $senha = $_POST['senha'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']) && isset($_POST['senha'])){
+    $login = sanitizarEntrada($_POST['login'],'string');
+    $senha = sanitizarEntrada($_POST['senha'],'string');
     login($login,$senha);
 }
 

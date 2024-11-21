@@ -6,7 +6,7 @@ require_once '../src/funcoes.php';
 $setores = obterDados('SETORES',['STATUS' => 'TRUE'], '*', 'NOME ASC');
 $dispositivos = obterDados('DISPOSITIVOS',['STATUS' => 'TRUE'], '*', 'NOME ASC');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['setor_id']) && isset($_POST['dispositivo_id'])) {
     $setor_id = filter_input(INPUT_POST,'setor_id', FILTER_VALIDATE_INT);
     $dispositivo_id = filter_input(INPUT_POST,'dispositivo_id', FILTER_VALIDATE_INT);
 
@@ -65,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
        
         </div>
+
+        <hr>
 
         <div class = "container-formulario-inicial">
 

@@ -2,6 +2,7 @@
 
     require_once 'db.php';
     require_once 'perguntas.php';
+    require_once 'funcoes.php';
 
 
     // Define a função que receberá os parâmetros para inserir a avaliação
@@ -65,17 +66,13 @@
 
             // Verifica se existem respostas
             if (isset($_POST['feedback'])) {
-                $feedback_geral = trim($_POST['feedback']);
+                $feedback_geral = sanitizarEntrada(($_POST['feedback']),'string');
             } else {
                 $feedback_geral = null;
             }            
-
-            // Pega o feedback (que é opcional)
-            $feedback_geral = isset($_POST['feedback']) ? trim($_POST['feedback']) : null;
-
             
-            $setor_id = $_POST['setor_id'] ?? null;
-            $dispositivo_id = $_POST['dispositivo_id'] ?? null;
+            $setor_id = sanitizarEntrada($_POST['setor_id'],'inteiro') ?? null;
+            $dispositivo_id = sanitizarEntrada($_POST['dispositivo_id'],'inteiro') ?? null;
 
             if (!$setor_id || !$dispositivo_id) {
                 throw new Exception("Setor ou dispositivo não selecionado.");

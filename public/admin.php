@@ -169,7 +169,6 @@
 
         </table>
 
-        <a href="../src/auth.php?logout=true">Sair</a>
 
     </section>
 
@@ -205,6 +204,8 @@
         </table>
 
     </section>
+
+    <a href="../src/auth.php?logout=true">Sair</a>
 
 
 </body>

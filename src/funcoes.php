@@ -2,6 +2,17 @@
 
     require_once 'db.php';
 
+    function sanitizarEntrada($dado, $tipo = 'string'){
+        if ($tipo == 'string'){
+            return htmlspecialchars(trim($dado),ENT_QUOTES,'UTF-8');
+        } else if ($tipo == 'inteiro'){
+            return filter_var($dado,FILTER_SANITIZE_NUMBER_INT);
+        } else if ($tipo == 'real'){
+            return $filver_var($dado, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        }
+        return $dado;
+    }
+
     function obterDados($nomeTabela, $criterios = [], $colunas = '*', $ordem = '', $limite = null){
     try {
         $conexao = conectarBD();
@@ -92,8 +103,8 @@ function cadastrarItem($tabela, $dados, $secaoId){
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $formulario = $_POST ['formulario'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['formulario'])) {
+    $formulario = $_POST ['formulario']; 
 
     $dados = [];
     $tabela = '';
@@ -105,8 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tabela = 'PERGUNTAS';
             $secaoId = '#perguntas';
             $dados = [
-                'texto' =>$_POST['texto'],
-                'ordem' =>$_POST['ordem'],
+                'texto' =>sanitizarEntrada($_POST['texto'],'string'),
+                'ordem' =>sanitizarEntrada($_POST['ordem'],'inteiro'),
                 'status' => TRUE
             ];
         break;  
@@ -115,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tabela = 'setores';
             $secaoId = '#setores';
             $dados = [
-                'nome' => $_POST['nome'],
+                'nome' => sanitizarEntrada($_POST['nome'],'string')
             ];
         break;
         
@@ -123,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tabela = 'dispositivos';
             $secaoId = '#dispositivos';
             $dados = [
-                'nome' => $_POST['nome'],
+                'nome' => sanitizarEntrada($_POST['nome'],'string')
             ];
         break;
     }
@@ -164,8 +175,6 @@ if (isset($_GET['desativar']) && isset($_GET['tabela'])) {
         echo 'Erro na conexão: ' . $e->getMessage();
     }
 }
-
-
     
     
 
