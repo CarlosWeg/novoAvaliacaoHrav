@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['setor_id']) && isset(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Incial - Avaliação HRAV</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="icon" href="css/img/hrav-icon.png" type="image/png">
     <script src="js/scripts.js"></script>
 </head>
 <body>

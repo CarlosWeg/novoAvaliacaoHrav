@@ -71,3 +71,13 @@ window.onload = function(){
         }, 1000);
     }
 };
+
+window.onload = function() {
+    const mensagem = document.getElementById("mensagemUsuario");
+    if (mensagem) {
+        setTimeout(() => {
+            mensagem.style.animation = "fadeSaida 0.3s ease";
+            setTimeout(() => mensagem.remove(), 300);
+        }, 5000);
+    }
+}

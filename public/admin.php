@@ -1,10 +1,15 @@
 <?php
 
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     require_once '../src/auth.php';
     require_once '../src/respostas.php';
     require_once '../src/funcoes.php';
 
     verificarAutenticacao();
+    verificarErro();
 
     $perguntas = obterDados('PERGUNTAS',[],'ID,ORDEM,TEXTO,STATUS','ORDEM ASC');
     $respostas = obterDados('AVALIACOES',[],'*','DATA_HORA DESC');
@@ -21,6 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Admin - Avaliação HRAV</title>
     <link rel="stylesheet" href="css/admin-estilos.css">
+    <link rel="icon" href="css/img/hrav-icon.png" type="image/png">
+    <script src="js/scripts.js"></script>
 </head>
 <body>
 

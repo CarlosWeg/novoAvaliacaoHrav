@@ -202,6 +202,65 @@ section{
     animation: fadeIn 0.6 ease;
 }
 
+.mensagem-erro {
+    position: fixed;
+    top: 100px; /* Ajustado para ficar abaixo do cabeçalho */
+    right: 20px;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 15px 20px;
+    background-color: var(--primaria);
+    color: var(--texto-claro);
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 999;
+    animation: deslizarDir 0.3s ease;
+}
+
+.mensagem-erro::before {
+    content: "⚠️";
+    font-size: 20px;
+}
+
+
+/* Animação de entrada */
+@keyframes deslizarDir {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animação de saída */
+@keyframes fadeSaida {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .mensagem-erro {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        font-size: 14px;
+    }
+}
+
 /* Scrollbar personalizada */
 ::-webkit-scrollbar {
     width: 10px;

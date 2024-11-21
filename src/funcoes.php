@@ -1,5 +1,9 @@
 <?php
 
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     require_once 'db.php';
 
     function sanitizarEntrada($dado, $tipo = 'string'){
@@ -251,11 +255,22 @@ if (isset($_GET['remover']) && isset($_GET['tabela'])&& isset($_GET['secaoId']))
         exit();
 
     } catch (PDOException $e) {
-
+        if ($e->getCode() == '23503'){
+            $_SESSION['mensagemUsuario'] = 'Não foi possível excluir, item já vinculado a outro.';
+            header('Location: ../public/admin.php#' . $secaoId);
+            exit();
+        }
         echo 'Erro na conexão: ' . $e->getMessage();
     }
 }
-    
-    
+
+function verificarErro() {
+    if (isset($_SESSION['mensagemUsuario'])) {
+        echo '<div id="mensagemUsuario" class="mensagem-erro">' . 
+             htmlspecialchars($_SESSION['mensagemUsuario']) . 
+             '</div>';
+        unset($_SESSION['mensagemUsuario']);
+    }
+}
 
     
