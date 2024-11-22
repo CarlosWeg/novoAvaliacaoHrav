@@ -54,7 +54,8 @@ function finalizarFormulario() {
     document.getElementById('formulario').submit();
 }
 
-//Recarregar pagina de agradecimento após 5 segundos, timer dinâmico na tela
+//Recarregar pagina de agradecimento após 5 segundos /timer dinâmico na tela
+//Exibir mensagem de erro ao usuário
 window.onload = function(){
     if (document.getElementById('pagina-agradecimento')){
         let segundos = 5;
@@ -70,9 +71,7 @@ window.onload = function(){
             }
         }, 1000);
     }
-};
 
-window.onload = function() {
     const mensagem = document.getElementById("mensagemUsuario");
     if (mensagem) {
         setTimeout(() => {
@@ -80,4 +79,4 @@ window.onload = function() {
             setTimeout(() => mensagem.remove(), 300);
         }, 5000);
     }
-}
+};

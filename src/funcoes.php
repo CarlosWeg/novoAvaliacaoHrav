@@ -256,7 +256,7 @@ if (isset($_GET['remover']) && isset($_GET['tabela'])&& isset($_GET['secaoId']))
 
     } catch (PDOException $e) {
         if ($e->getCode() == '23503'){
-            $_SESSION['mensagemUsuario'] = 'Não foi possível excluir, item já vinculado a outro.';
+            $_SESSION['mensagemUsuario'] = 'Não foi possível excluir o item, pois ele está vinculado a outro registro.';
             header('Location: ../public/admin.php#' . $secaoId);
             exit();
         }
