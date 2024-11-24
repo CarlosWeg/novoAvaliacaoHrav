@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-require_once '../src/perguntas.php';
 require_once '../src/funcoes.php';
 
 $perguntas = obterDados('PERGUNTAS',['STATUS' => 'TRUE'],'ID,ORDEM,TEXTO,STATUS','ORDEM ASC');

@@ -66,7 +66,7 @@
                 }
             } else{
                 self::definirMensagem(
-                    'Ocorreu um erro inesperado. Por favor, tente novamente.',
+                    'Por favor, tente novamente.',
                     'erro',
                     $pagina
                 );

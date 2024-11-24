@@ -1,7 +1,6 @@
 <?php
 
     require_once 'db.php';
-    require_once 'perguntas.php';
     require_once 'funcoes.php';
 
 
