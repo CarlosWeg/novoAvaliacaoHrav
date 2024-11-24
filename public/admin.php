@@ -219,7 +219,7 @@
                         echo '<td>' . $resposta['dispositivo_id'] .'</td>';
                         echo '<td>' . $resposta['resposta'] .'</td>';
                         echo '<td>' . $resposta['feedback'] .'</td>';
-                        echo '<td>' . $resposta['data_hora'] .'</td>';
+                        echo '<td>' . date('d/m/Y H:i:s', strtotime($resposta['data_hora'])) .'</td>';
                         echo '<td><a href="../src/funcoes.php?tabela=avaliacoes&secaoId=respostas&remover=' . $resposta['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                         echo '</tr>';
                     }

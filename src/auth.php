@@ -25,10 +25,6 @@ function login($login,$senha){
         $conexao = conectarBD();
         $pagina = '../public/admin.php';
 
-        if (!$conexao) {
-            throw new Exception("Falha na conexão com o banco de dados");
-        }
-
         $consulta = "SELECT id, senha
                        FROM usuarios_administrativos
                       WHERE login = :login
@@ -52,7 +48,7 @@ function login($login,$senha){
         }
         
         $_SESSION['usuario_logado'] = $resultado['id'];
-        GerenciadorMensagem::definirMensagem('Usuário ' . $login . ' autenticado com sucesso!','sucesso',$pagina);
+        GerenciadorMensagem::definirMensagem('Usuário "' . $login . '" autenticado com sucesso!','sucesso',$pagina);
 
     } catch (Exception $e){
         GerenciadorMensagem::tratarErro($e, $pagina);

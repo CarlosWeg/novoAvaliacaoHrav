@@ -70,6 +70,7 @@ if (!isset($dispositivo_id) || !isset($setor_id)){
 
         <footer>
                 <p>Sua avaliação espontânea é anônima, nenhuma informação pessoal é solicitada ou armazenada.</p>
+                <a href = "index.php">Voltar para a página inicial</a>
         </footer>
 
     </div>

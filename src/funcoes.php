@@ -66,11 +66,6 @@
 
         $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (empty($dados)) {
-            error_log("Nenhum registro encontrado na tabela $nomeTabela");
-            return [];
-        }
-
         return $dados;
     }  catch (Exception $e){
         GerenciadorMensagens::tratarErro($e, '../public/index.php');
@@ -127,7 +122,7 @@ function cadastrarUsuario($usuario, $senha) {
         $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            GerenciadorMensagem::definirMensagem('Usuário ' . $usuario . 'cadastrado com sucesso!','sucesso',$pagina);
+            GerenciadorMensagem::definirMensagem('Usuário "' . $usuario . '" cadastrado com sucesso!','sucesso',$pagina);
         } else {
             throw new Exception("Erro ao cadastrar o usuário.");
         }
