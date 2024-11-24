@@ -4,12 +4,13 @@
         session_start();
     }
 
+    require_once '../src/GerenciadorMensagem.php';
     require_once '../src/auth.php';
     require_once '../src/respostas.php';
     require_once '../src/funcoes.php';
 
     verificarAutenticacao();
-    verificarErro();
+    GerenciadorMensagem::exibirMensagem();
 
     $perguntas = obterDados('PERGUNTAS',[],'ID,ORDEM,TEXTO,STATUS','ORDEM ASC');
     $respostas = obterDados('AVALIACOES',[],'*','DATA_HORA DESC');
@@ -171,7 +172,7 @@
                         echo '<td>' . $usuario['login'] .'</td>';
                         echo '<td>' . ($usuario['status'] ? 'Ativo' : 'Inativo') . '</td>';
                         echo '<td><a href="../src/funcoes.php?tabela=usuarios_administrativos&secaoId=usuarios_administrativos&desativar=' . $usuario['id'] . '">' . ($usuario['status'] ? 'Inativar' : 'Ativar') . '</a></td>';
-                        echo '<td><a href="../src/funcoes.php?tabela=usuarios&secaoId=usuarios&remover=' . $usuario['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
+                        echo '<td><a href="../src/funcoes.php?tabela=usuarios_administrativos&secaoId=usuarios_administrativos&remover=' . $usuario['id'] . '" onclick="return confirm(\'Tem certeza que deseja remover este item?\')">Remover</a></td>';
                         echo '</tr>';
                     }
 

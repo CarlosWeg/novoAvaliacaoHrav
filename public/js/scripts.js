@@ -72,7 +72,7 @@ window.onload = function(){
         }, 1000);
     }
 
-    const mensagem = document.getElementById("mensagemUsuario");
+    const mensagem = document.getElementById("mensagemSistema");
     if (mensagem) {
         setTimeout(() => {
             mensagem.style.animation = "fadeSaida 0.3s ease";

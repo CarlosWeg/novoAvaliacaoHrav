@@ -5,6 +5,7 @@
     }
 
     require_once 'db.php';
+    require_once 'GerenciadorMensagem.php';
 
     function sanitizarEntrada($dado, $tipo = 'string'){
         if ($tipo == 'string'){
@@ -71,12 +72,8 @@
         }
 
         return $dados;
-    } catch (PDOException $e) {
-        error_log("Erro PDO ao obter dados da tabela $nomeTabela: " . $e->getMessage());
-        throw new Exception("Erro ao buscar os dados no banco de dados");
-    } catch (Exception $e) {
-        error_log("Erro ao obter dados da tabela $nomeTabela: " . $e->getMessage());
-        throw new Exception("Erro ao processar os dados");
+    }  catch (Exception $e){
+        GerenciadorMensagens::tratarErro($e, '../public/index.php');
     } finally {
         // Fecha a conexão
         $conexao = null;
@@ -85,7 +82,9 @@
 
 function cadastrarItem($tabela, $dados, $secaoId){
     try {
+        
         $conexao = conectarBD();
+        $pagina = '../public/admin.php#' . $secaoId;
 
         if (!$conexao) {
             throw new Exception("Falha na conexão com o banco de dados");
@@ -99,18 +98,19 @@ function cadastrarItem($tabela, $dados, $secaoId){
 
         $stmt->execute($dados);
 
-        header('Location: ../public/admin.php#' . $secaoId);
+
+        GerenciadorMensagem::definirMensagem('Registro cadastrado com sucesso!','sucesso',$pagina);
         exit;
 
-    } catch (PDOException $e) {
-        echo("Erro ao inserir item: " . $e->getMessage());
+    } catch (Exception $e){
+        GerenciadorMensagem::tratarErro($e, $pagina);
     }
 }
-
 function cadastrarUsuario($usuario, $senha) {
     try {
 
         $conexao = conectarBD();
+        $pagina = '../public/admin.php#usuarios_administrativos';
 
         if (!$conexao) {
             throw new Exception("Falha na conexão com o banco de dados.");
@@ -127,18 +127,12 @@ function cadastrarUsuario($usuario, $senha) {
         $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            echo "Usuário cadastrado com sucesso!";
-            header('Location: ../public/admin.php#usuarios_administrativos');
-            exit;
+            GerenciadorMensagem::definirMensagem('Usuário cadastrado com sucesso!','sucesso',$pagina);
         } else {
-            throw new Exception("Erro ao executar a consulta.");
+            throw new Exception("Erro ao cadastrar o usuário.");
         }
-
-
-    } catch (PDOException $e) {
-        echo "Erro ao cadastrar usuário: " . $e->getMessage();
-    } catch (Exception $e) {
-        echo "Erro: " . $e->getMessage();
+    }  catch (Exception $e){
+        GerenciadorMensagem::tratarErro($e, $pagina);
     }
 }
 
@@ -203,6 +197,7 @@ if (isset($_GET['desativar']) && isset($_GET['tabela'])&& isset($_GET['secaoId']
         $tabela = $_GET['tabela'];
         
         $conexao = conectarBD();
+        $pagina = '../public/admin.php#' . $secaoId;
 
         if (!$conexao) {
             throw new Exception("Falha na conexão com o banco de dados");
@@ -214,19 +209,18 @@ if (isset($_GET['desativar']) && isset($_GET['tabela'])&& isset($_GET['secaoId']
                    
         $stmt = $conexao->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        
-        $stmt->execute();
 
+        if ($stmt->execute()) {
+            GerenciadorMensagem::definirMensagem('Status do registro alterado com sucesso!','sucesso',$pagina);
+        } else {
+            throw new Exception("Erro ao alterar o status do registro.");
+        }
+    } catch (Exception $e){
+        GerenciadorMensagem::tratarErro($e, $pagina);
+    } finally{
         $conexao = null;
-        header('Location: ../public/admin.php#' . $secaoId);
-        exit();
-
-    } catch (PDOException $e) {
-
-        echo 'Erro na conexão: ' . $e->getMessage();
     }
 }
-
 
 if (isset($_GET['remover']) && isset($_GET['tabela'])&& isset($_GET['secaoId'])) {
             
@@ -235,6 +229,7 @@ if (isset($_GET['remover']) && isset($_GET['tabela'])&& isset($_GET['secaoId']))
         $id = (int)$_GET['remover'];
         $secaoId = $_GET['secaoId'];
         $tabela = $_GET['tabela'];
+        $pagina = '../public/admin.php#' . $secaoId;
         
         $conexao = conectarBD();
 
@@ -248,29 +243,14 @@ if (isset($_GET['remover']) && isset($_GET['tabela'])&& isset($_GET['secaoId']))
         $stmt = $conexao->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         
-        $stmt->execute();
-
-        $conexao = null;
-        header('Location: ../public/admin.php#' . $secaoId);
-        exit();
-
-    } catch (PDOException $e) {
-        if ($e->getCode() == '23503'){
-            $_SESSION['mensagemUsuario'] = 'Não foi possível excluir o item, pois ele está vinculado a outro registro.';
-            header('Location: ../public/admin.php#' . $secaoId);
-            exit();
+        if ($stmt->execute()) {
+            GerenciadorMensagem::definirMensagem('Registro removido com sucesso!','sucesso',$pagina);
+        } else {
+            throw new Exception("Erro ao remover o registro.");
         }
-        echo 'Erro na conexão: ' . $e->getMessage();
+    } catch (Exception $e){
+        GerenciadorMensagem::tratarErro($e, $pagina);
+    } finally{
+        $conexao = null;
     }
 }
-
-function verificarErro() {
-    if (isset($_SESSION['mensagemUsuario'])) {
-        echo '<div id="mensagemUsuario" class="mensagem-erro">' . 
-             htmlspecialchars($_SESSION['mensagemUsuario']) . 
-             '</div>';
-        unset($_SESSION['mensagemUsuario']);
-    }
-}
-
-    

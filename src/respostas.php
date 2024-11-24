@@ -41,28 +41,17 @@
                 throw new Exception("Erro ao inserir avaliação");
             }
 
-        } catch (PDOException $e) {
-            // Captura erros específicos do PDO (relacionados ao banco de dados)
-            error_log("Erro PDO ao inserir avaliação: " . $e->getMessage());
-            throw new Exception("Erro ao salvar a avaliação no banco de dados");
-            
-        } catch (Exception $e) {
-            // Captura outros tipos de erros
-            error_log("Erro ao inserir avaliação: " . $e->getMessage());
-            throw new Exception($e->getMessage());
-            
+        } catch (Exception $e){
+            GerenciadorMensagens::tratarErro($e, '../public/index.php');
         } finally {
+            // Fecha a conexão
             $conexao = null;
         }
     }
-
+    
     // Função para processar as respostas do formulário
     function processarRespostas() {
         try {
-            // Verifica se o formulário foi enviado via POST
-            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                throw new Exception("Método inválido");
-            }
 
             // Verifica se existem respostas
             if (isset($_POST['feedback'])) {
@@ -98,10 +87,11 @@
             header('Location: ../public/obrigado.php');
             exit;
 
-        } catch (Exception $e) {
-            error_log("Erro ao processar respostas: " . $e->getMessage());
-            header('Location: ../public/erro.php');
-            exit;
+        } catch (Exception $e){
+            GerenciadorMensagens::tratarErro($e, '../public/index.php');
+        } finally {
+            // Fecha a conexão
+            $conexao = null;
         }
     }
 

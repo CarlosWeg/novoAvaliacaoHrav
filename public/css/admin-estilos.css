@@ -202,9 +202,9 @@ section{
     animation: fadeIn 0.6 ease;
 }
 
-.mensagem-erro {
+.mensagem-sistema {
     position: fixed;
-    top: 100px; /* Ajustado para ficar abaixo do cabeçalho */
+    top: 100px;
     right: 20px;
     min-width: 300px;
     max-width: 450px;
@@ -218,11 +218,6 @@ section{
     gap: 12px;
     z-index: 999;
     animation: deslizarDir 0.3s ease;
-}
-
-.mensagem-erro::before {
-    content: "⚠️";
-    font-size: 20px;
 }
 
 
