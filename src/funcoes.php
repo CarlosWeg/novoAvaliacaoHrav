@@ -55,7 +55,12 @@
 
         // Associa os valores dos critérios ao prepared statement
         foreach ($criterios as $coluna => $valor) {
-            $stmt->bindValue(":$coluna", $valor);
+            if (is_array($valor) && $valor[0] === 'between') {
+                $stmt->bindValue(":{$coluna}_inicio", $valor[1]);
+                $stmt->bindValue(":{$coluna}_fim", $valor[2]);
+            } else {
+                $stmt->bindValue(":$coluna", $valor);
+            }
         }
         //$criterios = ['nome' => 'João', 'idade' => 25];
         //Exemplo de resultado FINAL: SELECT * FROM usuarios WHERE nome = 'João' AND idade = 25
@@ -129,6 +134,29 @@ function cadastrarUsuario($usuario, $senha) {
     }  catch (Exception $e){
         GerenciadorMensagem::tratarErro($e, $pagina);
     }
+}
+
+function verificarFiltros(){
+    $filtros = [];
+
+    if (!empty($_GET['setor_id'])){
+        $filtros['setor_id'] = $_GET['setor_id'];
+    }
+
+    if (!empty($_GET['pergunta_id'])){
+        $filtros['pergunta_id'] = $_GET['pergunta_id'];
+    }
+
+    if (!empty($_GET['dispositivo_id'])){
+        $filtros['dispositivo_id'] = $_GET['dispositivo_id'];
+    }
+
+    if (!empty($_GET['data_inicio']) && !empty($_GET('data_fim'))){
+        $filtros['data_hora'] = ['between', $_GET['data_inicio'], $_GET['data_fim']];
+    }
+
+    return $filtros;
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['formulario'])) {

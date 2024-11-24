@@ -10,10 +10,11 @@
     require_once '../src/funcoes.php';
 
     verificarAutenticacao();
+    $filtros = verificarFiltros();
     GerenciadorMensagem::exibirMensagem();
-
+    
     $perguntas = obterDados('PERGUNTAS',[],'ID,ORDEM,TEXTO,STATUS','ORDEM ASC');
-    $respostas = obterDados('AVALIACOES',[],'*','DATA_HORA DESC');
+    $respostas = obterDados('AVALIACOES', $filtros, '*', 'DATA_HORA DESC');
     $usuarios = obterDados('USUARIOS_ADMINISTRATIVOS',[],'ID,LOGIN,STATUS','ID ASC');
     $setores = obterDados('SETORES',[], '*', 'ID ASC');
     $dispositivos = obterDados('DISPOSITIVOS',[], '*', 'ID ASC');
@@ -197,6 +198,78 @@
 
     <section id = "respostas">
         <h3>Respostas</h3>
+
+        <form method = "GET" action = "#respostas" id = "form-filtros">
+
+                <label for = "setor_id">Setor:</label>
+                <select name = "setor_id">
+                    <option value = "">Todos</option>
+                    <?php
+                        foreach ($setores as $setor){
+                            echo '<option value = "' . $setor['id'] . '"';
+                            if (isset($_GET['setor_id']) && $_GET ['setor_id'] == $setor['id']){
+                                echo ' selected';
+                            }
+                            echo '>' . $setor['nome'] . '</option>';
+                        }
+                    ?>
+                </select>
+
+                
+                <label for = "dispositivo_id">Dispositivo:</label>
+                <select name = "dispositivo_id">
+                    <option value = "">Todos</option>
+                    <?php
+                        foreach ($dispositivos as $dispositivo){
+                            echo '<option value = "' . $dispositivo['id'] . '"';
+                            if (isset($_GET['dispositivo_id']) && $_GET['dispositivo_id'] == $dispositivo['id']){
+                                echo ' selected';
+                            }
+                            echo '>' . $dispositivo['nome'] . '</option>';
+                        }
+                    ?>
+                </select>
+
+                <label for = "pergunta_id">Pergunta:</label>
+                <select name = "pergunta_id">
+                    <option value = "">Todas</option>
+                    <?php
+                        foreach ($perguntas as $pergunta){
+                            echo '<option value = "' . $pergunta['id'] . '"';
+                            if (isset($_GET['pergunta_id']) && $_GET['pergunta_id'] == $pergunta['id']){
+                                echo ' selected';
+                            }
+                            echo '>'. $pergunta['texto'] . '</option>';
+                        }
+
+                    ?>
+                </select>
+
+                <label for = "data_inicio">Data Início:</label>
+                <input type = "date" name = "data_inicio"
+                value = "<?php
+                            if (isset($_GET['data_inicio'])){
+                                echo $_GET['data_inicio'];
+                            } else{
+                                echo '';
+                            }
+                ?>">
+
+                <label for = "data_fim">Data Fim:</label>
+                <input type = "date" name = "data_fim"
+                value = "<?php
+                            if (isset($_GET['data_fim'])){
+                                echo $_GET['data_fim'];
+                            } else{
+                                echo'';
+                            }
+                ?>">
+
+                <input type = "submit" value = "Filtrar">
+                <a href = "#respostas" onclick = "document.getElementById('form-filtros').reset()">Limpar Filtros</a>
+
+        </form>
+
         <table>
             <tr>
                 <th>ID</th>
