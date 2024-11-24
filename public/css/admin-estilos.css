@@ -153,7 +153,7 @@ label{
     font-size: 18px;
 }
 
-input[type="text"], input[type="number"],  input[type="password"]{
+select, .input-info {
     padding: 15px 20px;
     border: 2px solid var(--primaria-clara);
     border-radius: 10px;
@@ -162,10 +162,29 @@ input[type="text"], input[type="number"],  input[type="password"]{
     background-color: var(--fundo);
 }
 
-input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus {
+select:focus, .input-info:focus {
     outline: none;
     border-color: var(--primaria);
     box-shadow: 0 0 0 4px var(--primaria-clara);
+}
+
+#limpar-filtros{
+    color: var(--primaria);
+    border: 2px solid var(--primaria);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    transition: var(--transicao);
+}
+
+#limpar-filtros:hover{
+    background-color: var(--primaria-clara);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--sombra);
 }
 
 input[type="submit"]{
@@ -218,64 +237,6 @@ section{
     gap: 12px;
     z-index: 999;
     animation: deslizarDir 0.3s ease;
-}
-
-/* Estilização dos campos Select */
-select {
-    padding: 15px 20px;
-    border: 2px solid var(--primaria-clara);
-    border-radius: 10px;
-    font-size: 16px;
-    transition: var(--transicao);
-    background-color: var(--fundo);
-    width: 100%;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e06666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 16px;
-}
-
-select:focus {
-    outline: none;
-    border-color: var(--primaria);
-    box-shadow: 0 0 0 4px var(--primaria-clara);
-}
-
-select:hover {
-    border-color: var(--primaria);
-}
-
-/* Estilização das options */
-select option {
-    padding: 15px;
-    font-size: 16px;
-    background-color: var(--fundo);
-    color: var(--texto-escuro);
-}
-
-/* Estilização do link "Limpar Filtros" */
-#form-filtros a {
-    text-align: center;
-    background-color: transparent;
-    color: var(--primaria);
-    padding: 20px;
-    border: 2px solid var(--primaria);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: var(--transicao);
-    text-transform: uppercase;
-    text-decoration: none;
-    display: block;
-}
-
-#form-filtros a:hover {
-    background-color: var(--primaria-clara);
-    color: var(--texto-escuro);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--sombra);
 }
 
 
@@ -333,3 +294,5 @@ select option {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primaria-escura);
 }
+
+

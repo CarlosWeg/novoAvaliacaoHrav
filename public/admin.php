@@ -74,10 +74,10 @@
 
         <form id = "cadastrar-pergunta" method = "POST" action = "../src/funcoes.php">
             <label for = "texto">Informe a pergunta:</label>
-            <input type = "text" name = "texto" required>
+            <input class = "input-info" type = "text" name = "texto" required>
 
             <label for = "ordem">Informe a ordem:</label>
-            <input type = "number" name = "ordem" required>
+            <input class = "input-info"  type = "number" name = "ordem" required>
             
             <input type = "hidden" name = "formulario" value = "perguntas">
             <input type = "submit" value = "Cadastrar">
@@ -112,7 +112,7 @@
 
         <form id = "cadastrar-setor" method = "POST" action = "../src/funcoes.php">
             <label for = "nome">Informe o nome do setor:</label>
-            <input type = "text" name = "nome" required>
+            <input  class = "input-info" type = "text" name = "nome" required>
             
             <input type = "hidden" name = "formulario" value = "setores">
             <input type = "submit" value = "Cadastrar">
@@ -148,7 +148,7 @@
 
         <form id = "cadastrar-dispositivos" method = "POST" action = "../src/funcoes.php">
             <label for = "nome">Informe o nome do dispositivo:</label>
-            <input type = "text" name = "nome" required>
+            <input  class = "input-info" type = "text" name = "nome" required>
             
             <input type = "hidden" name = "formulario" value = "dispositivos">
             <input type = "submit" value = "Cadastrar">
@@ -184,10 +184,10 @@
 
         <form id = "cadastrar-usuarios_administrativos" method = "POST" action = "../src/funcoes.php">
             <label for = "usuario">Informe o usuário:</label>
-            <input type = "text" name = "usuario" required>
+            <input  class = "input-info" type = "text" name = "usuario" required>
 
             <label for = "senha">Informe a senha:</label>
-            <input type = "password" name = "senha" required>
+            <input  class = "input-info" type = "password" name = "senha" required>
             
             <input type = "hidden" name = "formulario" value = "usuarios_administrativos">
             <input type = "submit" value = "Cadastrar">
@@ -246,7 +246,7 @@
                 </select>
 
                 <label for = "data_inicio">Data Início:</label>
-                <input type = "date" name = "data_inicio"
+                <input  class = "input-info" type = "date" name = "data_inicio"
                 value = "<?php
                             if (isset($_GET['data_inicio'])){
                                 echo $_GET['data_inicio'];
@@ -256,7 +256,7 @@
                 ?>">
 
                 <label for = "data_fim">Data Fim:</label>
-                <input type = "date" name = "data_fim"
+                <input  class = "input-info" type = "date" name = "data_fim"
                 value = "<?php
                             if (isset($_GET['data_fim'])){
                                 echo $_GET['data_fim'];
@@ -265,8 +265,8 @@
                             }
                 ?>">
 
-                <input type = "submit" value = "Filtrar">
-                <a href = "#respostas" onclick = "document.getElementById('form-filtros').reset()">Limpar Filtros</a>
+                <input  class = "input-info" type = "submit" value = "Filtrar">
+                <a href = "#respostas" onclick = "document.getElementById('form-filtros').reset()" id = "limpar-filtros" >Limpar filtros</a>
 
         </form>
 
@@ -282,7 +282,6 @@
                 <th>Ações</th>
             </tr>
 
-            
                 <?php
                     foreach ($respostas as $resposta){
                         echo '<tr>';

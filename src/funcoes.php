@@ -19,66 +19,70 @@
     }
 
     function obterDados($nomeTabela, $criterios = [], $colunas = '*', $ordem = '', $limite = null){
-    try {
-        $conexao = conectarBD();
-
-        if (!$conexao) {
-            throw new Exception("Falha na conexão com o banco de dados");
-        }
-
-        // Monta a consulta SQL dinamicamente
-        $consulta = "SELECT $colunas
-                       FROM $nomeTabela";
-
-        // Adiciona critérios de filtro (WHERE) dinamicamente
-        if (!empty($criterios)) {
-            $condicoes = [];
+        try {
+            $conexao = conectarBD();
+            $pagina = '../public/index.php';
+    
+            if (!$conexao) {
+                throw new Exception("Falha na conexão com o banco de dados");
+            }
+    
+            // Monta a consulta SQL dinamicamente
+            $consulta = "SELECT $colunas
+                        FROM $nomeTabela";
+    
+            // Adiciona critérios de filtro (WHERE) dinamicamente
+            if (!empty($criterios)) {
+                $condicoes = [];
+                foreach ($criterios as $coluna => $valor) {
+                    if (is_array($valor) && $valor[0] === 'between') {
+                        $condicoes[] = "$coluna BETWEEN :${coluna}_inicio AND :${coluna}_fim";
+                    } else {
+                        $condicoes[] = "$coluna = :$coluna";
+                    }
+                }
+                $consulta .= " WHERE " . implode(' AND ', $condicoes);
+            }
+    
+            // Adiciona ordenação, se especificado
+            if (!empty($ordem)) {
+                $consulta .= " ORDER BY $ordem";
+            }
+    
+            // Adiciona limite, se especificado
+            if ($limite) {
+                $consulta .= " LIMIT $limite";
+            }
+    
+            $stmt = $conexao->prepare($consulta);
+    
+            // Associa os valores dos critérios ao prepared statement
             foreach ($criterios as $coluna => $valor) {
-                $condicoes[] = "$coluna = :$coluna";
-                //Exemplo de resultado: nome = :nome, idade = :idade;
+                if (is_array($valor) && $valor[0] === 'between') {
+                    // Converte as datas para o formato do banco de dados e adiciona o horário
+                    $dataInicio = $valor[1] . ' 00:00:00';
+                    $dataFim = $valor[2] . ' 23:59:59';
+                    
+                    $stmt->bindValue(":{$coluna}_inicio", $dataInicio);
+                    $stmt->bindValue(":{$coluna}_fim", $dataFim);
+                } else {
+                    $stmt->bindValue(":$coluna", $valor);
+                }
             }
-            $consulta .= " WHERE " . implode(' AND ', $condicoes);
-            //Exemplo de resultado: SELECT * FROM usuarios WHERE nome = :nome AND idade = :idade;
-        }
-
-        // Adiciona ordenação, se especificado
-        if (!empty($ordem)) {
-            $consulta .= " ORDER BY $ordem";
-        }
-
-        // Adiciona limite, se especificado
-        if ($limite) {
-            $consulta .= " LIMIT $limite";
-        }
-
-        $stmt = $conexao->prepare($consulta);
-
-        // Associa os valores dos critérios ao prepared statement
-        foreach ($criterios as $coluna => $valor) {
-            if (is_array($valor) && $valor[0] === 'between') {
-                $stmt->bindValue(":{$coluna}_inicio", $valor[1]);
-                $stmt->bindValue(":{$coluna}_fim", $valor[2]);
-            } else {
-                $stmt->bindValue(":$coluna", $valor);
+    
+            if (!$stmt->execute()) {
+                throw new Exception("Erro ao executar a consulta");
             }
+    
+            $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $dados;
+            
+        } catch (Exception $e){
+            GerenciadorMensagem::tratarErro($e, $pagina);
+        } finally {
+            $conexao = null;
         }
-        //$criterios = ['nome' => 'João', 'idade' => 25];
-        //Exemplo de resultado FINAL: SELECT * FROM usuarios WHERE nome = 'João' AND idade = 25
-
-        if (!$stmt->execute()) {
-            throw new Exception("Erro ao executar a consulta");
-        }
-
-        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $dados;
-    }  catch (Exception $e){
-        GerenciadorMensagens::tratarErro($e, '../public/index.php');
-    } finally {
-        // Fecha a conexão
-        $conexao = null;
     }
-}
 
 function cadastrarItem($tabela, $dados, $secaoId){
     try {
@@ -151,7 +155,7 @@ function verificarFiltros(){
         $filtros['dispositivo_id'] = $_GET['dispositivo_id'];
     }
 
-    if (!empty($_GET['data_inicio']) && !empty($_GET('data_fim'))){
+    if (!empty($_GET['data_inicio']) && !empty($_GET['data_fim'])){
         $filtros['data_hora'] = ['between', $_GET['data_inicio'], $_GET['data_fim']];
     }
 
