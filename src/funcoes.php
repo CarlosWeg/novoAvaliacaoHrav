@@ -96,12 +96,12 @@ function cadastrarItem($tabela, $dados, $secaoId){
         $sql = "INSERT INTO $tabela ($colunas) VALUES ($placeholders)";
         $stmt = $conexao->prepare($sql);
 
-        $stmt->execute($dados);
-
-
-        GerenciadorMensagem::definirMensagem('Registro cadastrado com sucesso!','sucesso',$pagina);
-        exit;
-
+        if ($stmt->execute($dados)) {
+            GerenciadorMensagem::definirMensagem('Item cadastrado com sucesso!','sucesso',$pagina);
+        } else {
+            throw new Exception("Erro ao cadastrar o item.");
+        }
+        
     } catch (Exception $e){
         GerenciadorMensagem::tratarErro($e, $pagina);
     }
@@ -127,7 +127,7 @@ function cadastrarUsuario($usuario, $senha) {
         $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            GerenciadorMensagem::definirMensagem('Usuário cadastrado com sucesso!','sucesso',$pagina);
+            GerenciadorMensagem::definirMensagem('Usuário ' . $usuario . 'cadastrado com sucesso!','sucesso',$pagina);
         } else {
             throw new Exception("Erro ao cadastrar o usuário.");
         }

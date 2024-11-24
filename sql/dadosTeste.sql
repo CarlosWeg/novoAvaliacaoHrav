@@ -29,3 +29,8 @@ INSERT INTO dispositivos (nome, status) VALUES
 ('Tablet - Recepção', TRUE),
 ('Tablet - Emergência', TRUE),
 ('Aplicativo Móvel', TRUE);
+
+-- Inserir usuário
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+INSERT INTO usuarios_administrativos (login, senha)
+VALUES ('admin', crypt('admin', gen_salt('bf')));

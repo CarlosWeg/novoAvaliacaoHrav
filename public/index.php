@@ -1,8 +1,14 @@
 <?php
 
-session_start();
-session_unset();
 require_once '../src/funcoes.php';
+require_once '../src/GerenciadorMensagem.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+GerenciadorMensagem::exibirMensagem();
+session_unset();
 
 $setores = obterDados('SETORES',['STATUS' => 'TRUE'], '*', 'NOME ASC');
 $dispositivos = obterDados('DISPOSITIVOS',['STATUS' => 'TRUE'], '*', 'NOME ASC');

@@ -23,6 +23,7 @@ function login($login,$senha){
     try{
         
         $conexao = conectarBD();
+        $pagina = '../public/admin.php';
 
         if (!$conexao) {
             throw new Exception("Falha na conexão com o banco de dados");
@@ -51,20 +52,12 @@ function login($login,$senha){
         }
         
         $_SESSION['usuario_logado'] = $resultado['id'];
-        header('Location: ../public/admin.php');
+        GerenciadorMensagem::definirMensagem('Usuário ' . $login . ' autenticado com sucesso!','sucesso',$pagina);
 
-    } catch (Exception $e) {
-        error_log("Erro no login: " . $e->getMessage());
-        throw new Exception("Falha no login: " . $e->getMessage());
-    } finally {
-        if (isset($conexao)) {
-            $conexao = null;
-        }
+    } catch (Exception $e){
+        GerenciadorMensagem::tratarErro($e, $pagina);
     }
 }
-
-
-
 function verificarAutenticacao() {
     if (!isset($_SESSION['usuario_logado'])) {
         header('Location: ../public/index.php');
