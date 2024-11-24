@@ -241,6 +241,18 @@ section{
     animation: deslizarDir 0.3s ease;
 }
 
+/* Animação de entrada */
+@keyframes deslizarDir {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* Animação de saída */
 @keyframes fadeSaida {
     from {
