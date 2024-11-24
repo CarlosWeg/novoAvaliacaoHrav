@@ -23,14 +23,14 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 /* Container Principal */
 .container-principal{
-    width: 100%;
+    width: 90%;
     max-width: 1000px;
-    padding: 30px;
+    padding: 20px;
     background: var(--fundo);
     border-radius: 20px;
     box-shadow: 0 8px 30px var(--sombra);
@@ -49,7 +49,7 @@ body{
 }
 
 #logo-hospital{
-    max-width: 200px;
+    width: 200px;
     height: auto;
     transition: var(--transicao);
 }
@@ -254,101 +254,6 @@ footer a, footer p{
     }
 }
 
-/* Responsividade para Tablets */
-@media (max-width: 1024px) {
-    body {
-        padding: 15px;
-    }
-
-    .container-principal {
-        width: 95%;
-        padding: 25px;
-    }
-
-    h1 {
-        font-size: 26px;
-    }
-
-    h3 {
-        font-size: 24px;
-    }
-
-    .escala {
-        gap: 10px;
-    }
-
-    .escala label {
-        width: 45px;
-        height: 45px;
-        font-size: 14px;
-    }
-
-    .pergunta-texto {
-        font-size: 24px;
-    }
-
-    .container-formulario-inicial, .pergunta {
-        padding: 20px;
-    }
-
-    select, input[type="text"], input[type="password"], textarea {
-        padding: 10px;
-        font-size: 15px;
-    }
-
-    button {
-        padding: 12px;
-    }
-}
-
-/* Responsividade para Celulares */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .container-principal {
-        width: 100%;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    h3 {
-        font-size: 20px;
-    }
-
-    .escala {
-        gap: 8px;
-    }
-
-    .escala label {
-        width: 35px;
-        height: 35px;
-        font-size: 12px;
-    }
-
-    .pergunta-texto {
-        font-size: 20px;
-    }
-
-    .container-formulario-inicial, .pergunta {
-        padding: 15px;
-    }
-
-    select, input[type="text"], input[type="password"], textarea {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    button {
-        padding: 10px;
-    }
-}
-
-
 /* Scrollbar personalizada */
 ::-webkit-scrollbar {
     width: 10px;
@@ -367,4 +272,58 @@ footer a, footer p{
 /* Indicador Hover*/
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primaria-escura);
+}
+
+/* Media Queries para Responsividade */
+@media screen and (max-width: 1024px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    h3, label, .pergunta-texto {
+        font-size: 20px;
+    }
+}
+
+/* Media Queries para Responsividade */
+@media screen and (max-width: 768px){
+
+    h1{
+        font-size: 20px;
+     }
+
+     h3,label,.pergunta-texto{
+         font-size: 18px;
+     }
+
+    .container-formulario-inicial{
+        padding: 15px;
+    }
+
+    .escala{
+        gap: 6px;
+        padding: 8px;
+    }
+
+     .escala label {
+           width: 40px;
+           height: 40px;
+           border-radius: 5px;
+           font-size: 14px;
+     }
+
+    select, input[type="text"], input[type="password"], textarea {
+          padding: 10px;
+          font-size: 14px;
+    }
+
+    button{
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    footer a,footer p{
+        font-size: 14px;
+        padding: 5px;
+    }
 }
