@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['setor_id']) && isset(
 
             <form id = "formulario-autenticador" method = "POST" action = "../src/auth.php">
 
-                <label for = "login">Informe o usuario:</label>
+                <label for = "login">Informe o usuário:</label>
                 <input type = "text" name = "login" required>
 
                 <label for = "senha">Informe a senha:</label>

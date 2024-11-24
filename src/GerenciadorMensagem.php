@@ -66,7 +66,7 @@
                 }
             } else{
                 self::definirMensagem(
-                    'Por favor, tente novamente.',
+                    'Não foi possível concluir a ação. Por favor, tente novamente.',
                     'erro',
                     $pagina
                 );
