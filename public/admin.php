@@ -266,7 +266,7 @@
                 ?>">
 
                 <input  class = "input-info" type = "submit" value = "Filtrar">
-                <a href = "#respostas" onclick = "document.getElementById('form-filtros').reset()" id = "limpar-filtros" >Limpar filtros</a>
+                <a href = "admin.php#respostas" onclick = "document.getElementById('form-filtros').reset(); document.getElementById('form-filtros').submit();" id = "limpar-filtros" >Limpar filtros</a>
 
         </form>
 
