@@ -1,4 +1,4 @@
-# novoAvaliacaoHrav
+# sistemaAvaliacaoHrav
 Sistema de Avaliação de Serviços Prestados pelo Hospital Regial do Alto Vale do Itajaí - HRAV
 
 Objetivo: Desenvolver um sistema funcional de avaliação para o Hospital Regional Alto Vale, onde os usuários poderão avaliar serviços e setores do hospital sem necessidade de identificação. O sistema será integrado a um banco de dados PostgreSQL, onde as perguntas serão previamente cadastradas em uma retaguarda, e as respostas poderão ser visualizadas em dashboards fornecidos pelo sistema.
